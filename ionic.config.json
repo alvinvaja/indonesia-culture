@@ -1,0 +1,7 @@
+{
+  "name": "indonesia-culture",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
