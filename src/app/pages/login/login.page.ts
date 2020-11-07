@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/users.model';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -11,7 +10,6 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class LoginPage implements OnInit {
   form: NgForm;
-  private usersSubscription: Subscription;
   private users: User[];
   constructor(private usersService: UsersService) { }
 

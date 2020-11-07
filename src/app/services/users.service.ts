@@ -13,7 +13,6 @@ export class UsersService {
 
   constructor(private db: AngularFirestore) {
     this.usersCollection = db.collection<User>('users');
-    console.log(this.usersCollection);
     this.users = this.usersCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
