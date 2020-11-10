@@ -22,8 +22,4 @@ export class HomePage implements OnInit {
       this.wisatas = res;
     });
   }
-
-  goToDetail(id: number) {
-    this.router.navigateByUrl('/home/' + String(id));
-  }
 }
