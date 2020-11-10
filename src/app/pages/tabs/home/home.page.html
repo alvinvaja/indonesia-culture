@@ -8,6 +8,10 @@
   <ion-grid>
     <ion-row>
       <ion-col size="10" offset="1">
+        <div class="searchCity">
+          <img src="../../../../assets/icon/location.png" (click)="showCity()" />
+          {{ defaultPlace }}
+        </div>
         <ion-card *ngFor="let wisata of wisatas" style="padding: 8px" [routerLink]="['./', wisata.id]">
           <ion-card-title style="text-align: center; font-size: 18px; padding-bottom: 8px;">{{ wisata.name }}</ion-card-title>
           <ion-img [src]="wisata.photo"></ion-img>

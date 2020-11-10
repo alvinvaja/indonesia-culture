@@ -8,6 +8,15 @@ import { Wisata } from '../models/wisata.model';
   providedIn: 'root'
 })
 export class WisataService {
+  private hardcodeCity = [
+    'Jakarta', 'Magelang', 'Semarang', 'Jambi', 'Palembang', 'Lampung',
+    'Bogor', 'Depok', 'Tangerang', 'Bekasi', 'Bandung', 'Surabaya', 'Medan',
+    'Makassar', 'Padang', 'Pekanbaru', 'Denpasar', 'Manado', 'Malang',
+    'Pontianak', 'Kupang', 'Yogyakarta', 'Banjarmasin', 'Cirebon', 'Cilegon',
+    'Serang', 'Bengkulu', 'Kediri', 'Pekalongan', 'Tegal', 'Sukabumi', 'Balikpapan',
+    'Palu', 'Sabang', 'Merauke', 'Banda Aceh', 'Cimahi', 'Gorontalo', 'Madiun', 'Jayapura'
+  ];
+
   private wisatas: Observable<Wisata[]>;
   private wisatasCollection: AngularFirestoreCollection<Wisata>;
   constructor(private db: AngularFirestore) {
@@ -25,6 +34,10 @@ export class WisataService {
 
   getAllWisatas() {
     return this.wisatas;
+  }
+
+  getHardCodeCity() {
+    return this.hardcodeCity;
   }
 
   getDummy() {
