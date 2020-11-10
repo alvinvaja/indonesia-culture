@@ -1,5 +1,5 @@
 export interface Wisata {
-    id: number;
+    id: string;
     name: string;
     city: string;
     address: string;

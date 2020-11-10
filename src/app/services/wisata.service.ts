@@ -29,7 +29,7 @@ export class WisataService {
 
   getDummy() {
     return {
-      id: 0,
+      id: '',
       name: '',
       city: '',
       address: '',

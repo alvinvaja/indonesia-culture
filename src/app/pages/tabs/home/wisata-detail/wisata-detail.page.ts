@@ -19,7 +19,7 @@ export class WisataDetailPage implements OnInit {
     this.wisata = this.wisataService.getDummy();
     this.activatedRoute.paramMap.subscribe(paramMap => {
       if (!paramMap.has('wisataId')) { return; }
-      const wisataId = Number(paramMap.get('wisataId'));
+      const wisataId = paramMap.get('wisataId');
       this.wisataService.getAllWisatas().subscribe(res => {
         res.forEach(data => {
           if (data.id === wisataId) {
