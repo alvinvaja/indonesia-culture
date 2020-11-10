@@ -12,6 +12,9 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +24,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    ReactiveFormsModule
   ],
   providers: [
     StatusBar,
