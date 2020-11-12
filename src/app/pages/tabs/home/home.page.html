@@ -15,7 +15,13 @@
         <ion-card *ngFor="let wisata of wisatas" style="padding: 8px" [routerLink]="['./', wisata.id]">
           <ion-card-title style="text-align: center; font-size: 18px; padding-bottom: 8px;">{{ wisata.name }}</ion-card-title>
           <ion-img [src]="wisata.photo"></ion-img>
-          <ion-card-subtitle style="padding-top: 8px">{{ wisata.city }}</ion-card-subtitle>
+          <ion-card-subtitle style="padding-top: 8px">
+            <div class="subtitle">
+              <ion-label>{{ wisata.city }}</ion-label>
+              <ion-label *ngIf="isWisataOpen(wisata)" style="color: rgb(0, 250, 54);">Open</ion-label>
+              <ion-label *ngIf="!isWisataOpen(wisata)" style="color: red;">Closed</ion-label>
+            </div>
+          </ion-card-subtitle>
         </ion-card>
       </ion-col>
     </ion-row>

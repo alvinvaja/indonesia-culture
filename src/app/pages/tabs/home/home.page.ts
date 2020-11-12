@@ -14,11 +14,16 @@ import { CityModalComponent } from 'src/app/components/city-modal/city-modal.com
 export class HomePage implements OnInit {
   public wisatas: Wisata[];
   public defaultPlace: string;
+  public now: Date = new Date();
   constructor(
     private wisataService: WisataService,
     private router: Router,
     private modalCtrl: ModalController
-  ) { }
+  ) {
+    setInterval(() => {
+      this.now = new Date();
+    }, 1);
+  }
 
   ngOnInit() {
     this.defaultPlace = 'Jakarta';
@@ -49,5 +54,20 @@ export class HomePage implements OnInit {
     return this.wisatas.filter(wisata => {
       return wisata.city === this.defaultPlace;
     });
+  }
+
+  isWisataOpen(wisata: Wisata) {
+    const start = this.extractTimetoNumber(wisata.openHour);
+    const end = this.extractTimetoNumber(wisata.closeHour);
+    const now = this.extractTimetoNumber(String(this.now.getHours() + ':' + this.now.getMinutes()));
+
+    return now >= start && now <= end;
+  }
+
+  extractTimetoNumber(waktu: string) {
+    const hour = Number(waktu.substring(0, 2));
+    const minute = Number(waktu.substring(3));
+
+    return hour * 3600 + minute * 60;
   }
 }
