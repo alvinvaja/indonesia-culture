@@ -28,4 +28,13 @@ export class UsersService {
   getAllUsers() {
     return this.users;
   }
+
+  registerToFireStore(email: string, name: string, age: number, contribution: number) {
+    this.db.collection('users').add({
+      email,
+      name,
+      age,
+      contribution
+    });
+  }
 }
