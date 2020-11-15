@@ -15,6 +15,8 @@ export class HomePage implements OnInit {
   public wisatas: Wisata[];
   public defaultPlace: string;
   public now: Date = new Date();
+  public username: string;
+
   constructor(
     private wisataService: WisataService,
     private router: Router,
@@ -27,6 +29,7 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.defaultPlace = 'Jakarta';
+    this.username = localStorage.getItem('name') === null ? '' : localStorage.getItem('name');
     this.subscribeWisata();
   }
 
@@ -64,10 +67,20 @@ export class HomePage implements OnInit {
     return now >= start && now <= end;
   }
 
+  isLoggedIn() {
+    return localStorage.getItem('name') === null ? false : true;
+  }
+
   extractTimetoNumber(waktu: string) {
     const hour = Number(waktu.substring(0, 2));
     const minute = Number(waktu.substring(3));
 
     return hour * 3600 + minute * 60;
+  }
+
+  logOut() {
+    localStorage.removeItem('name');
+    localStorage.removeItem('email');
+    this.router.navigateByUrl('/login');
   }
 }

@@ -3,6 +3,8 @@ import { AuthenticateService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NavController } from '@ionic/angular';
+import { UsersService } from 'src/app/services/users.service';
+import { User } from 'src/app/models/users.model';
 
 
 @Component({
@@ -14,12 +16,14 @@ export class LoginPage implements OnInit {
 
   validations_form: FormGroup;
   errorMessage: string = '';
+  singleUser: User;
 
   constructor(
 
     private navCtrl: NavController,
     private authService: AuthenticateService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private userService: UsersService
 
   ) { }
 
@@ -54,15 +58,25 @@ export class LoginPage implements OnInit {
     this.authService.loginUser(value)
       .then(res => {
         console.log(res);
-        this.errorMessage = "";
-        this.navCtrl.navigateForward('/home');
+        this.errorMessage = '';
+        this.createLoginSession(value.email);
+        this.navCtrl.navigateForward('/tabs/home');
       }, err => {
         this.errorMessage = err.message;
-      })
+      });
   }
 
   goToRegisterPage() {
     this.navCtrl.navigateForward('/register');
   }
 
+  createLoginSession(userEmail) {
+    this.userService.getAllUsers().subscribe(res => {
+      const filterUser = res.filter(user => {
+        return user.email === userEmail;
+      })[0];
+      localStorage.setItem('email', filterUser.email);
+      localStorage.setItem('name', filterUser.name);
+    });
+  }
 }

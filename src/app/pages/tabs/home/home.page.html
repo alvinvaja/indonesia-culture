@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Home</ion-title>
+    <ion-buttons slot="primary">
+      <ion-label style="margin-right: 8px" *ngIf="isLoggedIn()">Hi, {{ username }}</ion-label>
+      <ion-icon *ngIf="!isLoggedIn()" size="large" name="log-in-outline" routerLink="/login"></ion-icon>
+      <ion-icon *ngIf="isLoggedIn()" size="large" name="log-out-outline" (click)="logOut()"></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

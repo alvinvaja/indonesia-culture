@@ -8,6 +8,7 @@ import { User } from 'src/app/models/users.model';
   providedIn: 'root'
 })
 export class UsersService {
+  private singleUser: User;
   private users: Observable<User[]>;
   private usersCollection: AngularFirestoreCollection<User>;
 
