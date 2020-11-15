@@ -24,12 +24,12 @@ export class HomePage implements OnInit {
   ) {
     setInterval(() => {
       this.now = new Date();
+      this.username = localStorage.getItem('name') === null ? '' : localStorage.getItem('name');
     }, 1);
   }
 
   ngOnInit() {
     this.defaultPlace = 'Jakarta';
-    this.username = localStorage.getItem('name') === null ? '' : localStorage.getItem('name');
     this.subscribeWisata();
   }
 

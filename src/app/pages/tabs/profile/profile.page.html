@@ -1,9 +1,34 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>profile</ion-title>
+    <ion-title>User Profile</ion-title>
+    <ion-buttons slot="primary">
+      <ion-icon *ngIf="isLoggedIn()" size="large" name="log-out-outline" (click)="logOut()"></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col size="10" offset="1">
+        <ion-avatar style="margin: auto; margin-top: 16px; width: 175px; height: 175px">
+          <img src="../../../../assets/icon/avatar.svg" />
+        </ion-avatar>
+        <div style="display: flex; justify-content: center; margin-top: 16px;">
+          <ion-label style="font-size: 24px;">{{ user.name }}</ion-label>
+        </div>
+        <div style="display: flex; flex-direction: column; margin-top: 16px;">
+          <ion-label style="font-size: 18px;">Age : {{ user.age }}</ion-label>
+          <ion-label style="font-size: 18px; margin-top: 8px;">Contribution : {{ user.contribution }}</ion-label>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+
+<div *ngIf="!isLoggedIn()" class="backdrop">
+  <div class="loginFirst">
+    <p style="font-weight: 500; font-size: 16px;">Please login first to continue</p>
+    <ion-button routerLink="/login" size="small" style="text-transform: none !important; margin-top: 16px;">Login</ion-button>
+  </div>
+</div>
