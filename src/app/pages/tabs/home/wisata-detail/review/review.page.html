@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref='{{ backUrl }}'></ion-back-button>
+    </ion-buttons>
+    <ion-title style="padding: 0">{{ wisata.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="10" offset="1">
+        <ion-card style="padding: 16px; border-radius: 12px;">
+          <ion-img style="border-radius: 12px !important; overflow: hidden; margin-bottom: 16px;" [src]="wisata.photo"></ion-img>
+          <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+            <ion-list style="display: flex; flex-direction: column; align-items: center;">
+              <ion-label style="font-size: 12px;">Rate this place</ion-label>
+              <bar-rating name="rating" [(ngModel)]="formRating" [max]="5" required></bar-rating>
+              <ion-label style="font-size: 12px;">Write your honest review here</ion-label>
+              <ion-item lines="none" style="width: 100%;">
+                <ion-textarea placeholder="Write review here.." ngModel name="review" required></ion-textarea>
+              </ion-item>
+              <ion-button type="submit" color="primary" size="small" style="text-transform: none !important; font-size: 12px; margin-top: 16px;">Add Review</ion-button>
+            </ion-list>
+          </form>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

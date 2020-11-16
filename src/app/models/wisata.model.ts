@@ -9,4 +9,6 @@ export interface Wisata {
     description: string;
     history: string;
     photo: string;
+    reviewCounter: number;
+    rating: number;
 }

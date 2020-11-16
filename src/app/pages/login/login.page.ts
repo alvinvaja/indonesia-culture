@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { NavController } from '@ionic/angular';
 import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/models/users.model';
+import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -71,7 +72,7 @@ export class LoginPage implements OnInit {
   }
 
   createLoginSession(userEmail) {
-    this.userService.getAllUsers().subscribe(res => {
+    this.userService.getAllUsers().pipe(take(1)).subscribe(res => {
       const filterUser = res.filter(user => {
         return user.email === userEmail;
       })[0];

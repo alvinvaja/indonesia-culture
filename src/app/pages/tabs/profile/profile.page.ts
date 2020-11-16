@@ -16,7 +16,7 @@ export class ProfilePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.user = { name: '-', age: 0, contribution: 0, email: '-' };
+    this.user = { id: '', name: '-', age: 0, contribution: 0, email: '-', reviewCounter: 0 };
     if (localStorage.getItem('email') !== null) {
       this.userService.getAllUsers().subscribe(res => {
         this.user = res.filter(user => {
