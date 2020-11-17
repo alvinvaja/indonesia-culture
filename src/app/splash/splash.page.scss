@@ -1,0 +1,13 @@
+
+ion-content {
+    --background:linear-gradient(to bottom,rgba(71, 242, 255,0.5), rgba(243, 15, 255,0.5));  
+}
+@-webkit-keyframes text-blur-out{0%{-webkit-filter:blur(.01);filter:blur(.01)}100%{-webkit-filter:blur(12px) opacity(0);filter:blur(12px) opacity(0)}}@keyframes text-blur-out{0%{-webkit-filter:blur(.01);filter:blur(.01)}100%{-webkit-filter:blur(12px) opacity(0);filter:blur(12px) opacity(0)}}
+.container{
+    -webkit-animation:text-blur-out 3s cubic-bezier(.55,.085,.68,.53) both;animation:text-blur-out 3s cubic-bezier(.55,.085,.68,.53) both;
+    img{
+        height: 300px;
+        margin-top: 60%;
+        
+    }
+}
