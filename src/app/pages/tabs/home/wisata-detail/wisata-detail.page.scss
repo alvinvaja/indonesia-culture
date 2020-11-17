@@ -31,6 +31,27 @@ ion-icon {
     }
 }
 
+.review {
+    width: 100%;
+    background-color: white;
+    border-radius: 12px;
+    padding: 8px;
+    margin-top: 8px;
+
+    &__title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        color: #555555;
+    }
+
+    &__desc {
+        font-size: 12px;
+        margin-top: 8px;
+    }
+}
+
 ion-content {
     --background:linear-gradient(to bottom,rgba(71, 242, 255,0.5), rgba(243, 15, 255,0.5)), url('../../../../../assets/img/background.jpg') 0 0/100% 100% no-repeat ;
 }

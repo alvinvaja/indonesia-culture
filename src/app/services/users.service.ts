@@ -41,12 +41,20 @@ export class UsersService {
     );
   }
 
+  getUserReviews() {
+    const email = localStorage.getItem('email');
+    const user = this.getSingleUser(email);
+
+    return user;
+  }
+
   registerToFireStore(email: string, name: string, age: number, contribution: number) {
     this.db.collection('users').add({
       email,
       name,
       age,
-      contribution
+      contribution,
+      photo: '../../../../assets/icon/avatar.svg'
     });
   }
 
@@ -56,9 +64,9 @@ export class UsersService {
     const currentUser = this.getSingleUser(email);
     currentUser.pipe(take(1)).subscribe(res => {
       const data = res[0];
-      console.log(data);
       this.db.collection('users').doc(data.id).update({
-        reviewCounter: data.reviewCounter + 1
+        reviewCounter: data.reviewCounter + 1,
+        contribution: data.contribution + 1
       });
       this.db.collection('users').doc(data.id).collection('review').add({
         rating: review.rating,

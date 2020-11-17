@@ -3,6 +3,8 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Wisata } from '../models/wisata.model';
+import { WisataReview } from '../models/wisataReview.model';
+import { UsersService } from './users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,7 @@ export class WisataService {
 
   private wisatas: Observable<Wisata[]>;
   private wisatasCollection: AngularFirestoreCollection<Wisata>;
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore, private userService: UsersService) {
     this.wisatasCollection = db.collection<Wisata>('wisata');
     this.wisatas = this.wisatasCollection.snapshotChanges().pipe(
       map(actions => {
@@ -34,6 +36,18 @@ export class WisataService {
 
   getAllWisatas() {
     return this.wisatas;
+  }
+
+  getWisataReviews(key: string) {
+    return this.db.collection<WisataReview>('wisata/' + key + '/review').snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return {id, ...data };
+        });
+      })
+    );
   }
 
   getHardCodeCity() {
@@ -74,10 +88,15 @@ export class WisataService {
 
   addWisataReview(review: any) {
     this.updateWisataRating(review.rating, review.wisata);
-    this.db.collection('wisata').doc(review.wisata.id).collection('review').add({
-      username: review.username,
-      rating: review.rating,
-      review: review.review
+
+    this.userService.getSingleUser(review.email).pipe(take(1)).subscribe(res => {
+      const data = res[0];
+      this.db.collection('wisata').doc(review.wisata.id).collection('review').add({
+        username: data.name,
+        userphoto: data.photo,
+        rating: review.rating,
+        review: review.review
+      });
     });
   }
 }

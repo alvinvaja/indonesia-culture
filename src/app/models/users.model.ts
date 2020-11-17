@@ -5,4 +5,5 @@ export interface User {
     age: number;
     contribution: number;
     reviewCounter: number;
+    photo: string;
 }

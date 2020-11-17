@@ -14,12 +14,28 @@
         <ion-avatar style="margin: auto; margin-top: 16px; width: 175px; height: 175px">
           <img src="../../../../assets/icon/avatar.svg" />
         </ion-avatar>
-        <div style="display: flex; justify-content: center; margin-top: 16px;">
+        <div style="display: flex; justify-content: center; margin-top: 16px; color: white;">
           <ion-label style="font-size: 24px;">{{ user.name }}</ion-label>
         </div>
-        <div style="display: flex; flex-direction: column; margin-top: 16px;">
+        <div style="display: flex; flex-direction: column; margin-top: 16px; color: white;">
           <ion-label style="font-size: 18px;">Age : {{ user.age }}</ion-label>
           <ion-label style="font-size: 18px; margin-top: 8px;">Contribution : {{ user.contribution }}</ion-label>
+        </div>
+        <div class="reviewSection">
+          <p style="font-size: 20px; color: white; margin: 0;">Past Reviews</p>
+          <ion-button size="small" style="text-transform: none !important; font-size: 12px;">Show Image</ion-button>
+        </div>
+        <div *ngFor="let review of userReview" class="review">
+          <div class="review__title">
+            <div>{{ review.wisataName }}</div>
+            <div style="display: flex; align-items: flex-start;">
+              <img style="width: 16px; height: 16px;" src="../../../../assets/icon/star.png" />
+              <div style="margin-left: 4px">{{ review.rating }}/5</div>
+            </div>
+          </div>
+          <div class="review__desc">
+            {{ review.review }}
+          </div>
         </div>
       </ion-col>
     </ion-row>

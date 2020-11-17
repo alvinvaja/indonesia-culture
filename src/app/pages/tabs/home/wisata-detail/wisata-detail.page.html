@@ -35,6 +35,23 @@
               </div>
             </ion-button>
         </div>
+        <div *ngFor="let review of wisataReview" class="review">
+          <div class="review__title">
+            <div style="display: flex; align-items: flex-start;">
+              <ion-avatar style="width: 20px; height: 20px;" >
+                <img src="{{ review.userphoto }}" />
+              </ion-avatar>
+              <div style="margin-left: 8px">{{ review.username }}</div>
+            </div>
+            <div style="display: flex; align-items: flex-start;">
+              <img style="width: 16px; height: 16px;" src="../../../../assets/icon/star.png" />
+              <div style="margin-left: 4px">{{ review.rating }}/5</div>
+            </div>
+          </div>
+          <div class="review__desc">
+            {{ review.review }}
+          </div>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>

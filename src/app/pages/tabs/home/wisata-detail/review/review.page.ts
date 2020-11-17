@@ -45,7 +45,7 @@ export class ReviewPage implements OnInit {
     }
 
     const wisataReview = {
-      username: localStorage.getItem('name'),
+      email: localStorage.getItem('email'),
       rating: form.value.rating,
       review: form.value.review,
       wisata: this.wisata
