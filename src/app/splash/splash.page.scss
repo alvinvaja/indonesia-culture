@@ -2,9 +2,9 @@
 ion-content {
     --background:linear-gradient(to bottom,rgba(71, 242, 255,0.5), rgba(243, 15, 255,0.5));  
 }
-@-webkit-keyframes text-blur-out{0%{-webkit-filter:blur(.01);filter:blur(.01)}100%{-webkit-filter:blur(12px) opacity(0);filter:blur(12px) opacity(0)}}@keyframes text-blur-out{0%{-webkit-filter:blur(.01);filter:blur(.01)}100%{-webkit-filter:blur(12px) opacity(0);filter:blur(12px) opacity(0)}}
+@-webkit-keyframes slide-in-elliptic-top-fwd{0%{-webkit-transform:translateY(-600px) rotateX(-30deg) scale(0);transform:translateY(-600px) rotateX(-30deg) scale(0);-webkit-transform-origin:50% 100%;transform-origin:50% 100%;opacity:0}100%{-webkit-transform:translateY(0) rotateX(0) scale(1);transform:translateY(0) rotateX(0) scale(1);-webkit-transform-origin:50% 1400px;transform-origin:50% 1400px;opacity:1}}@keyframes slide-in-elliptic-top-fwd{0%{-webkit-transform:translateY(-600px) rotateX(-30deg) scale(0);transform:translateY(-600px) rotateX(-30deg) scale(0);-webkit-transform-origin:50% 100%;transform-origin:50% 100%;opacity:0}100%{-webkit-transform:translateY(0) rotateX(0) scale(1);transform:translateY(0) rotateX(0) scale(1);-webkit-transform-origin:50% 1400px;transform-origin:50% 1400px;opacity:1}}
 .container{
-    -webkit-animation:text-blur-out 3s cubic-bezier(.55,.085,.68,.53) both;animation:text-blur-out 3s cubic-bezier(.55,.085,.68,.53) both;
+    -webkit-animation:slide-in-elliptic-top-fwd 1s cubic-bezier(.25,.46,.45,.94) both;animation:slide-in-elliptic-top-fwd 1s cubic-bezier(.25,.46,.45,.94) both;
     img{
         height: 300px;
         margin-top: 60%;
