@@ -1,10 +1,10 @@
 import { Router } from '@angular/router';
-import { FirestoreService } from './../../services/firestore.service';
 import { AuthenticateService } from './../../services/authentication.service';
 // register.page.ts
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { LoadingController, NavController } from '@ionic/angular';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-register',
@@ -12,25 +12,23 @@ import { LoadingController, NavController } from '@ionic/angular';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
+  validationForm: FormGroup;
+  errorMessage = '';
+  successMessage = '';
 
-
-  validations_form: FormGroup;
-  errorMessage: string = '';
-  successMessage: string = '';
-
-  validation_messages = {
-    'email': [
+  validationMessages = {
+    email: [
       { type: 'required', message: 'Email is required.' },
       { type: 'pattern', message: 'Enter a valid email.' }
     ],
-    'password': [
+    password: [
       { type: 'required', message: 'Password is required.' },
       { type: 'minlength', message: 'Password must be at least 5 characters long.' }
     ],
-    'name':[
+    name : [
       { type: 'required', message: 'Name is required.' }
     ],
-    'age':[
+    age : [
       {type: 'required', message: 'Age is required'}
     ]
   };
@@ -39,14 +37,14 @@ export class RegisterPage implements OnInit {
     private navCtrl: NavController,
     private authService: AuthenticateService,
     private formBuilder: FormBuilder,
-    private firestoreService:FirestoreService,
-    private loadingCtrl :LoadingController,
-    private router : Router
+    private loadingCtrl: LoadingController,
+    private router: Router,
+    private userService: UsersService
 
   ) { }
 
   ngOnInit() {
-    this.validations_form = this.formBuilder.group({
+    this.validationForm = this.formBuilder.group({
       email: new FormControl('', Validators.compose([
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
@@ -55,27 +53,27 @@ export class RegisterPage implements OnInit {
         Validators.minLength(5),
         Validators.required
       ])),
-      name: new FormControl('',Validators.compose([
+      name: new FormControl('', Validators.compose([
         Validators.required
       ])),
-      age: new FormControl('',Validators.compose([
+      age: new FormControl('', Validators.compose([
         Validators.required
       ]))
     });
   }
 
-  tryRegister(value) {
+  tryRegister(value: any) {
     this.authService.registerUser(value)
       .then(res => {
         console.log(res);
         this.createuser();
-        this.errorMessage = "";
-        this.successMessage = "Your account has been created. Please log in.";
+        this.errorMessage = '';
+        this.successMessage = 'Your account has been created. Please log in.';
       }, err => {
         console.log(err);
         this.errorMessage = err.message;
-        this.successMessage = "";
-      })
+        this.successMessage = '';
+      });
   }
 
   goLoginPage() {
@@ -84,29 +82,14 @@ export class RegisterPage implements OnInit {
 
   async createuser() {
     const loading = await this.loadingCtrl.create();
-  
-    const email = this.validations_form.value.email;
-    const name = this.validations_form.value.name;
-    const age = this.validations_form.value.age;
-    const contribution = 0;
-    // const contribution = this.createSongForm.value.songName;
-  
-    this.firestoreService
-      .tryRegister(email,name,age,contribution)
-      .then(
-        () => {
-          loading.dismiss().then(() => {
-            this.router.navigateByUrl('');
-          });
-        },
-        error => {
-          loading.dismiss().then(() => {
-            console.error(error);
-          });
-        }
-      );
-  
-    return await loading.present();
-  }
 
+    const email = this.validationForm.value.email;
+    const name = this.validationForm.value.name;
+    const age = this.validationForm.value.age;
+    const contribution = 0;
+
+    this.userService.registerToFireStore(email, name, age, contribution);
+
+    this.router.navigateByUrl('/login');
+  }
 }

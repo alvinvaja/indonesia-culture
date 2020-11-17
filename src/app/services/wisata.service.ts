@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { Wisata } from '../models/wisata.model';
 
 @Injectable({
@@ -51,7 +51,33 @@ export class WisataService {
       price: 0,
       description: '',
       history: '',
-      photo: ''
+      photo: '',
+      reviewCounter: 0,
+      rating: 0
     };
+  }
+
+  updateWisataRating(rating: number, wisata: Wisata) {
+    this.getAllWisatas().pipe(take(1)).subscribe(res => {
+      res.forEach(data => {
+        if (data.id === wisata.id) {
+          const newSize = data.reviewCounter + 1;
+          const newRating = data.rating + rating;
+          this.db.collection('wisata').doc(wisata.id).update({
+            rating: newRating,
+            reviewCounter: newSize
+          });
+        }
+      });
+    });
+  }
+
+  addWisataReview(review: any) {
+    this.updateWisataRating(review.rating, review.wisata);
+    this.db.collection('wisata').doc(review.wisata.id).collection('review').add({
+      username: review.username,
+      rating: review.rating,
+      review: review.review
+    });
   }
 }
