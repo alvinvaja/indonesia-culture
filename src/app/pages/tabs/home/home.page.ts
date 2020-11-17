@@ -62,7 +62,19 @@ export class HomePage implements OnInit {
   isWisataOpen(wisata: Wisata) {
     const start = this.extractTimetoNumber(wisata.openHour);
     const end = this.extractTimetoNumber(wisata.closeHour);
-    const now = this.extractTimetoNumber(String(this.now.getHours() + ':' + this.now.getMinutes()));
+
+    const hour = this.now.getHours();
+    let hourString = String(this.now.getHours());
+    if (hour < 10) {
+      hourString = '0' + hourString;
+    }
+
+    const minute = this.now.getMinutes();
+    let minuteString = String(this.now.getMinutes());
+    if (minute < 10) {
+      minuteString = '0' + minuteString;
+    }
+    const now = this.extractTimetoNumber(String(hourString + ':' + minuteString));
 
     return now >= start && now <= end;
   }
