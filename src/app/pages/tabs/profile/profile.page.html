@@ -11,10 +11,11 @@
   <ion-grid>
     <ion-row>
       <ion-col size="10" offset="1">
-        <ion-avatar style="margin: auto; margin-top: 16px; width: 175px; height: 175px">
+        <ion-avatar style="margin: auto; margin-top: 16px; width: 150px; height: 150px">
+          <ion-icon (click)="updateProfilePhoto()" name="image-outline" size="large" style="float: right; color: white;"></ion-icon>
           <img src="../../../../assets/icon/avatar.svg" />
         </ion-avatar>
-        <div style="display: flex; justify-content: center; margin-top: 16px; color: white;">
+        <div style="display: flex; justify-content: center; margin-top: 50px; color: white;">
           <ion-label style="font-size: 24px;">{{ user.name }}</ion-label>
         </div>
         <div style="display: flex; flex-direction: column; margin-top: 16px; color: white;">

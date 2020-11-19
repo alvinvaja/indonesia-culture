@@ -1,9 +1,26 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>leaderboard</ion-title>
+    <ion-title>Top Contributors</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none" class="user__item" *ngFor="let user of users; let i = index" [color]="user.name === currentName ? 'light' : ''">
+          <div class="user">
+            <div style="display: flex; align-items: center;">
+              <ion-label>{{ (i + 1) }}</ion-label>
+              <ion-avatar style="width: 40px;  height: 40px; margin-left: 20px;">
+                <img src="{{ user.photo }}" />
+              </ion-avatar>
+              <ion-label style="margin-left: 20px">{{ user.name }}</ion-label>
+            </div>
+            <ion-label>{{ user.contribution }}</ion-label>
+          </div>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

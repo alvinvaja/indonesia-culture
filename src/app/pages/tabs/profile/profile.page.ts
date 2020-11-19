@@ -5,6 +5,7 @@ import { UserReview } from 'src/app/models/userReview.model';
 import { User } from 'src/app/models/users.model';
 import { UsersService } from 'src/app/services/users.service';
 import { map, take } from 'rxjs/operators';
+import { Camera } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +19,8 @@ export class ProfilePage implements OnInit {
   constructor(
     private userService: UsersService,
     private router: Router,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private camera: Camera
   ) {}
 
   ngOnInit() {
@@ -44,6 +46,17 @@ export class ProfilePage implements OnInit {
       ).subscribe(review => {
         this.userReview = review;
       });
+    });
+  }
+
+  updateProfilePhoto() {
+    this.camera.getPicture({
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      destinationType: this.camera.DestinationType.DATA_URL
+    }).then((res) => {
+      this.user.photo = 'data:image/jpeg;base64,' + res;
+    }).catch(e => {
+      console.log(e);
     });
   }
 
