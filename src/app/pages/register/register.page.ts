@@ -77,7 +77,7 @@ export class RegisterPage implements OnInit {
   }
 
   goLoginPage() {
-    this.navCtrl.navigateBack('');
+    this.navCtrl.navigateBack('/login');
   }
 
   async createuser() {
