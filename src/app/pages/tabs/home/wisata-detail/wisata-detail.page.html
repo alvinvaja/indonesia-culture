@@ -1,13 +1,15 @@
-<ion-header>
-  <ion-toolbar>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+<ion-header class="ion-no-border">
+	<ion-toolbar>
+    <ion-title style="padding: 0">{{ wisata.name }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/home"></ion-back-button>
     </ion-buttons>
-    <ion-title style="padding: 0">{{ wisata.name }}</ion-title>
-  </ion-toolbar>
+	</ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen="true">
   <ion-grid>
     <ion-row>
       <ion-col size="10" offset="1">
@@ -55,4 +57,35 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+</ion-content> 
+
+
+<!-- <ion-content fullscreen="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="10" offset="1">
+        <div class="searchCity">
+          <img src="../../../../assets/icon/location.png" (click)="showCity()" />
+          {{ defaultPlace }}
+        </div>
+        <ion-card *ngFor="let wisata of wisatas" style="padding: 8px" [routerLink]="['./', wisata.id]">
+          <ion-card-title style="text-align: center; font-size: 18px; padding-bottom: 8px;">{{ wisata.name }}</ion-card-title>
+          <ion-img [src]="wisata.photo"></ion-img>
+          <ion-card-subtitle style="padding-top: 8px">
+            <div class="subtitle">
+              <ion-label>{{ wisata.city }}</ion-label>
+              <ion-label *ngIf="isWisataOpen(wisata)" style="color: rgb(0, 250, 54);">Open</ion-label>
+              <ion-label *ngIf="!isWisataOpen(wisata)" style="color: red;">Closed</ion-label>
+            </div>
+          </ion-card-subtitle>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+
+<ion-footer class="ion-no-border">
+	<ion-toolbar>
+		<p class="ion-text-center custom-font">Already have an account? <a (click)="goLoginPage()">Try to Log In.</a></p>
+	</ion-toolbar>
+</ion-footer>  -->

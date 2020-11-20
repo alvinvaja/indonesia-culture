@@ -1,13 +1,16 @@
-<ion-header>
-  <ion-toolbar>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+<ion-header class="ion-no-border">
+	<ion-toolbar>
+    <ion-title style="padding: 0">Sejarah {{ wisata.name }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref='{{ backUrl }}'></ion-back-button>
     </ion-buttons>
-    <ion-title style="padding: 0">Sejarah {{ wisata.name }}</ion-title>
-  </ion-toolbar>
+	</ion-toolbar>
 </ion-header>
 
-<ion-content>
+
+<ion-content fullscreen="true">
   <ion-grid>
     <ion-row>
       <ion-col size="10" offset="1">
