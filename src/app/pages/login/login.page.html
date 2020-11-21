@@ -2,7 +2,7 @@
 
 <ion-header class="ion-no-border">
 	<ion-toolbar>
-    <ion-buttons slot="start">
+    <ion-buttons slot="start" style="position: absolute; top: 10px; left: 10px;">
       <ion-back-button defaultHref="/tabs/home"></ion-back-button>
     </ion-buttons>
     <div class="back-circle"></div>
@@ -12,14 +12,14 @@
 
 
 <ion-content fullscreen="true">
-  <div class="ion-padding">
+  <div class="ion-padding" style="display: flex; justify-content: center; align-items: center; height: 100%;">
     <form class="form ion-padding" [formGroup]="validations_form" (ngSubmit)="loginUser(validations_form.value)">
       <div class="wrap-input">
         <input class="input" type="text" name="email" placeholder="Email" formControlName="email">
       </div>
       <div class="validation-errors">
         <ng-container *ngFor="let validation of validation_messages.email">
-          <div class="error-message" style="color: red;"
+          <div class="error-message"
             *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
             {{ validation.message }}
           </div>
@@ -31,14 +31,14 @@
       </div>
       <div class="validation-errors">
         <ng-container *ngFor="let validation of validation_messages.password">
-          <div class="error-message"  style="color: red;"
+          <div class="error-message"
             *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
             {{ validation.message }}
           </div>
         </ng-container>
       </div>
 
-      <div class="container-form-btn">
+      <div class="container-form-btn" style="margin-top: 26px;">
         <button class="form-btn custom-font"  type="submit" [disabled]="!validations_form.valid">
         Log In
         </button>

@@ -1,51 +1,3 @@
-// ion-toolbar {
-//     --background: #f5f5f3;
-  
-//     ion-button {
-//       text-transform: initial;
-//       font-size: 17px;
-//     }
-//   }
-  
-//   ion-content {
-//     --background:linear-gradient(to bottom,rgba(71, 242, 255,0.5), rgba(243, 15, 255,0.5)), url('../../../assets/img/background.jpg') 0 0/100% 100% no-repeat ;
-      
-//     #header {
-//       display: flex;
-//       flex-direction: column;
-//       align-items: center;
-  
-//       h1 {
-//         font-weight: 700;
-//         font-size: 26px;
-//         color: #010100;
-//         margin-bottom: 15%;
-//       }
-  
-//       img {
-//         width: 125px;
-//         height: 125px;
-//         border-radius: 50%;
-//         border:  solid #ffffff;
-//       }
-//     }
-  
-//     #form {
-//       margin-top: 15%;
-//       padding-left: 30px;
-//       padding-right: 30px;
-  
-//       ion-button {
-//         margin-top: 35px;
-//         height: 48px;
-//         font-size: 18px;
-//         text-transform: initial;
-//         border-radius: 50px;
-//         box-shadow: 1px 8px 8px 0px rgba(0, 0, 0, 0.05);
-//         --box-shadow: none;
-//       }
-//     }
-//   }
 .custom-font {
   font-family: 'Josefin Sans', sans-serif;
 }
@@ -54,13 +6,8 @@ ion-toolbar {
   --background: transparent;
 
   ion-title {
-    padding: 20px 0 46px 0;
+    padding: 10px 0 20px 0;
     font-weight: 900;
-  }
-
-  p {
-    padding: 40px 0 20px 0;
-    font-weight: 600;
   }
 
   .back-circle {
@@ -75,74 +22,73 @@ ion-toolbar {
     left: 0;
     right: 0;
     bottom: 0;
-
   }
-
-
 }
 
-  ion-content {
+form {
+  width: 100%;
+}
 
-    --background:linear-gradient(to bottom,rgba(71, 242, 255,0.5), rgba(243, 15, 255,0.5)), url('../../../assets/img/background.jpg') 0 0/100% 100% no-repeat ;
-  
-    .back-blob {
-      z-index: -1;
-      width: 600px;
-      position: absolute;
-      left: -50%;
-      top: 0;
-    }
-  
-    form {
-      margin-top: 200px;
-    }
-  
-    .wrap-input {
-      background-color: rgba(255, 255, 255, .8);
-      border-radius: 20px;
-      margin-bottom: 26px;
-      box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.12);
-    }
-  
-    .input {
-      display: block;
-      width: 100%;
-      background: transparent;
-      font-family: Josefin Sans;
-      font-size: 16px;
-      line-height: 1.2;
-      border: none;
-      outline: none;
-      height: 46px;
-      padding: 0 20px 0 23px; 
-    }
-  
-    .container-form-btn {
-      display: flex;
-      justify-content: center;
-    }
-  
-    .form-btn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0 20px;
-      min-width: 160px;
-      height: 42px;
-      background-color: #394752;
-      border-radius: 20px;
-      font-size: 14px;
-      color: #FFFFFF;
-      text-transform: uppercase;
-      padding-top: 5px;
-      transition: all 0.4s;
-      box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.5);
-    }
-  
-    .form-btn:hover {
-      background-color: #28333b;
-      box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.8);
-    }
-  
-  
+.error-message {
+  color: red;
+}
+
+ion-content {
+  --background:linear-gradient(to bottom,rgba(71, 242, 255,0.5), rgba(243, 15, 255,0.5)), url('../../../assets/img/background.jpg') 0 0/100% 100% no-repeat ;
+
+  .back-blob {
+    z-index: -1;
+    width: 600px;
+    position: absolute;
+    left: -50%;
+    top: 0;
   }
+
+  .wrap-input {
+    background-color: rgba(255, 255, 255, .8);
+    border-radius: 20px;
+    margin-top: 26px;
+    box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.12);
+  }
+
+  .input {
+    display: block;
+    width: 100%;
+    background: transparent;
+    font-family: Josefin Sans;
+    font-size: 16px;
+    line-height: 1.2;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    height: 46px;
+    padding: 0 20px 0 23px; 
+  }
+
+  .container-form-btn {
+    display: flex;
+    justify-content: center;
+  }
+
+  .form-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    min-width: 160px;
+    height: 42px;
+    background-color: #394752;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    padding-top: 5px;
+    transition: all 0.4s;
+    box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.5);
+  }
+
+  .form-btn:hover {
+    background-color: #28333b;
+    box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.8);
+  }
+}

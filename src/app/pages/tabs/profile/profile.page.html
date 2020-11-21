@@ -1,22 +1,9 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>User Profile</ion-title>
-    <ion-buttons slot="primary">
-      <ion-icon *ngIf="isLoggedIn()" size="large" name="log-out-outline" (click)="logOut()"></ion-icon>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-grid>
-    <ion-row> -->
-
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
 
 <ion-header class="ion-no-border">
 	<ion-toolbar>
     <ion-title class="ion-text-center custom-font">Profile</ion-title>
-    <ion-buttons slot="primary">
+    <ion-buttons slot="primary" style="position: absolute; top: 10px; right: 10px;">
       <ion-icon *ngIf="isLoggedIn()" size="large" name="log-out-outline" (click)="logOut()"></ion-icon>
     </ion-buttons>
     <div class="back-circle"></div>

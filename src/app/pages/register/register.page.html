@@ -2,7 +2,7 @@
 
 <ion-header class="ion-no-border">
 	<ion-toolbar>
-    <ion-buttons slot="start">
+    <ion-buttons slot="start" style="position: absolute; top: 10px; left: 10px;">
       <ion-back-button defaultHref="/tabs/home"></ion-back-button>
     </ion-buttons>
     <div class="back-circle"></div>
@@ -12,7 +12,7 @@
 
 
 <ion-content fullscreen="true">
-  <div class="ion-padding">
+  <div class="ion-padding" style="display: flex; justify-content: center; align-items: center; height: 100%;">
   <form class="form ion-padding" [formGroup]="validationForm" (ngSubmit)="tryRegister(validationForm.value)">
     <div class="wrap-input">
       <input class="input" type="text" name="email" placeholder="Email" formControlName="email">
@@ -45,7 +45,7 @@
       <input class="input" type="number" name="age" placeholder="Age" formControlName="age" required>
     </div>
     
-    <div class="container-form-btn">
+    <div class="container-form-btn" style="margin-top: 26px;">
       <button class="form-btn custom-font"  type="submit" [disabled]="!validationForm.valid">
         Register
       </button>

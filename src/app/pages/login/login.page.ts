@@ -2,7 +2,7 @@ import { AuthenticateService } from './../../services/authentication.service';
 // login.page.ts
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/models/users.model';
 import { take } from 'rxjs/operators';
@@ -24,7 +24,8 @@ export class LoginPage implements OnInit {
     private navCtrl: NavController,
     private authService: AuthenticateService,
     private formBuilder: FormBuilder,
-    private userService: UsersService
+    private userService: UsersService,
+    private toastCtrl: ToastController
 
   ) { }
 
@@ -76,8 +77,18 @@ export class LoginPage implements OnInit {
       const filterUser = res.filter(user => {
         return user.email === userEmail;
       })[0];
+      this.triggerLoginPopUp(filterUser);
       localStorage.setItem('email', filterUser.email);
       localStorage.setItem('name', filterUser.name);
     });
+  }
+
+  async triggerLoginPopUp(user: User) {
+    const toast = await this.toastCtrl.create({
+      message: 'Welcome Back, ' + user.name + '!',
+      duration: 2000
+    });
+
+    toast.present();
   }
 }
