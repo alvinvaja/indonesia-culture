@@ -6,6 +6,7 @@ import { User } from 'src/app/models/users.model';
 import { UsersService } from 'src/app/services/users.service';
 import { map, take } from 'rxjs/operators';
 import { Camera } from '@ionic-native/camera/ngx';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +21,8 @@ export class ProfilePage implements OnInit {
     private userService: UsersService,
     private router: Router,
     private db: AngularFirestore,
-    private camera: Camera
+    private camera: Camera,
+    private loadCtrl: LoadingController
   ) {}
 
   ngOnInit() {
@@ -55,6 +57,8 @@ export class ProfilePage implements OnInit {
       destinationType: this.camera.DestinationType.DATA_URL
     }).then((res) => {
       this.user.photo = 'data:image/jpeg;base64,' + res;
+      this.presentLoading();
+      this.userService.updatePhoto(this.user.photo);
     }).catch(e => {
       console.log(e);
     });
@@ -68,5 +72,14 @@ export class ProfilePage implements OnInit {
     localStorage.removeItem('name');
     localStorage.removeItem('email');
     this.router.navigateByUrl('/login');
+  }
+
+  async presentLoading() {
+    const loading = await this.loadCtrl.create({
+      message: 'Please wait...',
+      duration: 1000
+    });
+
+    await loading.present();
   }
 }

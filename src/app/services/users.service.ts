@@ -76,4 +76,16 @@ export class UsersService {
       });
     });
   }
+
+  updatePhoto(newPhoto: string) {
+    const email = localStorage.getItem('email');
+
+    const currentUser = this.getSingleUser(email);
+    currentUser.pipe(take(1)).subscribe(res => {
+      const data = res[0];
+      this.db.collection('users').doc(data.id).update({
+        photo: newPhoto
+      });
+    });
+  }
 }
