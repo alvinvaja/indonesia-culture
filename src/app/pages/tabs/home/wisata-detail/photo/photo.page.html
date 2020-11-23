@@ -1,0 +1,31 @@
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+<ion-header class="ion-no-border">
+	<ion-toolbar>
+    <ion-title style="padding: 0; font-size: 16px;">{{ wisata.name }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref='{{ backUrl }}'></ion-back-button>
+    </ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="10" offset="1">
+        <ion-card style="padding: 16px; border-radius: 12px;">
+          <div *ngIf="url !== ''" class="previewPhoto">
+            <div style="margin-bottom: 8px; font-weight: 500;">Photo Preview</div>
+            <ion-img [src]='url'></ion-img>
+          </div>
+          <ion-card-content>
+            <div class="actionButton">
+              <ion-button color="primary" class="actionButton__style" (click)="choosePhoto()">Choose<br>Photo</ion-button>
+              <ion-button [disabled]="(url === '') ? true : false" color="secondary" class="actionButton__style" (click)="uploadPhoto()">Upload<br>Photo</ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

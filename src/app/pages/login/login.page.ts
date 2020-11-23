@@ -19,6 +19,17 @@ export class LoginPage implements OnInit {
   errorMessage: string = '';
   singleUser: User;
 
+  validation_messages = {
+    email: [
+      { type: 'required', message: 'Email is required.' },
+      { type: 'pattern', message: 'Please enter a valid email.' }
+    ],
+    password: [
+      { type: 'required', message: 'Password is required.' },
+      { type: 'minlength', message: 'Password must be at least 5 characters long.' }
+    ]
+  };
+
   constructor(
 
     private navCtrl: NavController,
@@ -43,26 +54,17 @@ export class LoginPage implements OnInit {
     });
   }
 
-
-  validation_messages = {
-    'email': [
-      { type: 'required', message: 'Email is required.' },
-      { type: 'pattern', message: 'Please enter a valid email.' }
-    ],
-    'password': [
-      { type: 'required', message: 'Password is required.' },
-      { type: 'minlength', message: 'Password must be at least 5 characters long.' }
-    ]
-  };
-
-
   loginUser(value) {
     this.authService.loginUser(value)
       .then(res => {
         console.log(res);
         this.errorMessage = '';
         this.createLoginSession(value.email);
-        this.navCtrl.navigateForward('/tabs/home');
+        if (value.email === 'admin@mailnator.com') {
+          this.navCtrl.navigateForward('/tabs/admin');
+        } else {
+          this.navCtrl.navigateForward('/tabs/home');
+        }
       }, err => {
         this.errorMessage = err.message;
       });

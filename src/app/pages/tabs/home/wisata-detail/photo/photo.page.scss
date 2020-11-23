@@ -1,5 +1,5 @@
 ion-content {
-    --background:linear-gradient(to bottom,rgba(71, 242, 255,0.5), rgba(243, 15, 255,0.5)), url('../../../../../../../assets/img/background.jpg') 0 0/100% 100% no-repeat ;
+    --background: linear-gradient(to bottom,rgba(71, 242, 255,0.5), rgba(243, 15, 255,0.5)), url('../../../../../../assets/img/background.jpg') 0 0/100% 100% no-repeat ;
 }
 
 ion-card {
@@ -8,13 +8,32 @@ ion-card {
     margin-bottom: 16px;
 }
 
+.previewPhoto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.actionButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__style {
+        text-transform: none !important;
+        font-size: 14px;
+        text-align: center;
+    }
+}
+
 .custom-font {
     font-family: 'Josefin Sans', sans-serif;
   }
   
   ion-toolbar {
     --background: transparent;
-  
+
     ion-title {
       padding: 20px 0 46px 0;
       font-weight: 900;

@@ -38,10 +38,6 @@ export class WisataService {
     return this.wisatas;
   }
 
-  getSingleWisata(wisataId: string) {
-    return this.db.collection('wisata').doc(wisataId).get();
-  }
-
   getWisataReviews(key: string) {
     return this.db.collection<WisataReview>('wisata/' + key + '/review').snapshotChanges().pipe(
       map(actions => {
@@ -105,7 +101,6 @@ export class WisataService {
   }
 
   delete(wisataId: string): Promise<void> {
-    console.log(wisataId);
-    return this.db.doc("wisata/" + wisataId).delete();
+    return this.db.doc('wisata/' + wisataId).delete();
   }
 }

@@ -9,8 +9,13 @@ import { Router } from '@angular/router';
 export class SplashPage implements OnInit {
 
   constructor(public router: Router) {
+    const email = localStorage.getItem('email') !== null ? localStorage.getItem('email') : '';
     setTimeout(() => {
-      this.router.navigateByUrl('tabs/admin');
+      if (email === 'admin@mailnator.com') {
+        this.router.navigateByUrl('tabs/admin');
+      } else {
+        this.router.navigateByUrl('tabs/home');
+      }
     }, 4000);
   }
 

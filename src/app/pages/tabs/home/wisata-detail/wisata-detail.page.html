@@ -2,9 +2,12 @@
 
 <ion-header class="ion-no-border">
 	<ion-toolbar>
-    <ion-title style="padding: 0">{{ wisata.name }}</ion-title>
+    <ion-title style="padding: 0; font-size: 16px;">{{ wisata.name }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-icon name="camera-outline" size="large" style="margin-right: 8px" [routerLink]="['./photo']"></ion-icon>
     </ion-buttons>
 	</ion-toolbar>
 </ion-header>
