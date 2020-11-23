@@ -103,4 +103,9 @@ export class WisataService {
       });
     });
   }
+
+  delete(wisataId: string): Promise<void> {
+    console.log(wisataId);
+    return this.db.doc("wisata/" + wisataId).delete();
+  }
 }
