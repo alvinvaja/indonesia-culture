@@ -1,41 +1,42 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
-import { TabsPage } from './tabs.page';
+import { TabsPage } from "./tabs.page";
 
 const routes: Routes = [
   {
-    path: 'tabs',
-    redirectTo: '/tabs/home',
-    component: TabsPage
+    path: "tabs",
+    redirectTo: "/tabs/home",
+    component: TabsPage,
   },
   {
-    path: '',
+    path: "",
     component: TabsPage,
     children: [
       {
-        path: 'home',
-        loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+        path: "home",
+        loadChildren: () =>
+          import("./home/home.module").then((m) => m.HomePageModule),
       },
       {
-        path: 'leaderboard',
-        loadChildren: () => import('./leaderboard/leaderboard.module').then( m => m.LeaderboardPageModule)
+        path: "leaderboard",
+        loadChildren: () =>
+          import("./leaderboard/leaderboard.module").then(
+            (m) => m.LeaderboardPageModule
+          ),
       },
       {
-        path: 'about',
-        loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
+        path: "about",
+        loadChildren: () =>
+          import("./about/about.module").then((m) => m.AboutPageModule),
       },
       {
-        path: 'profile',
-        loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+        path: "profile",
+        loadChildren: () =>
+          import("./profile/profile.module").then((m) => m.ProfilePageModule),
       },
-      {
-        path: 'admin',
-        loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule)
-      }
-    ]
-  }
-
+    ],
+  },
 ];
 
 @NgModule({
