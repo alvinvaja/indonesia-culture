@@ -11,14 +11,20 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./wisata-detail.page.scss'],
 })
 export class WisataDetailPage implements OnInit {
+  username: string;
   wisata: Wisata;
   wisataReview: WisataReview[] = [];
   constructor(
     private wisataService: WisataService,
     private activatedRoute: ActivatedRoute
-  ) { }
+  ) {
+    setInterval(() => {
+      this.username = localStorage.getItem('name') === null ? '' : localStorage.getItem('name');
+    }, 2);
+  }
 
   ngOnInit() {
+    this.username = '';
     this.wisata = this.wisataService.getDummy();
     this.activatedRoute.paramMap.subscribe(paramMap => {
       if (!paramMap.has('wisataId')) { return; }
