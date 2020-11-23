@@ -39,6 +39,12 @@ export class AdminPage implements OnInit {
     this.subscribeWisata();
   }
 
+  ionViewWillEnter() {
+    if (this.username === '') {
+      this.router.navigateByUrl('/tabs/home');
+    }
+  }
+
   async showCity() {
     const modal = await this.modalCtrl.create({
       component: CityModalComponent,
@@ -127,8 +133,4 @@ export class AdminPage implements OnInit {
     });
     await alert.present();
   }
-
-  // edit() {
-  //   this.router.navigateByUrl('/tabs/admin/edit-wisata');
-  // }
 }

@@ -1,39 +1,39 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import { TabsPage } from "./tabs.page";
+import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
   {
-    path: "tabs",
-    redirectTo: "/tabs/home",
+    path: 'tabs',
+    redirectTo: '/tabs/home',
     component: TabsPage,
   },
   {
-    path: "",
+    path: '',
     component: TabsPage,
     children: [
       {
-        path: "home",
+        path: 'home',
         loadChildren: () =>
-          import("./home/home.module").then((m) => m.HomePageModule),
+          import('./home/home.module').then((m) => m.HomePageModule),
       },
       {
-        path: "leaderboard",
+        path: 'leaderboard',
         loadChildren: () =>
-          import("./leaderboard/leaderboard.module").then(
+          import('./leaderboard/leaderboard.module').then(
             (m) => m.LeaderboardPageModule
           ),
       },
       {
-        path: "about",
+        path: 'about',
         loadChildren: () =>
-          import("./about/about.module").then((m) => m.AboutPageModule),
+          import('./about/about.module').then((m) => m.AboutPageModule),
       },
       {
-        path: "profile",
+        path: 'profile',
         loadChildren: () =>
-          import("./profile/profile.module").then((m) => m.ProfilePageModule),
+          import('./profile/profile.module').then((m) => m.ProfilePageModule),
       },
     ],
   },
