@@ -1,4 +1,4 @@
-import { CreateWisataService } from "./../../../../services/create-wisata.service";
+import { CreateWisataService } from "./../../../services/create-wisata.service";
 import { Router } from "@angular/router";
 // register.page.ts
 import { Component, OnInit } from "@angular/core";
