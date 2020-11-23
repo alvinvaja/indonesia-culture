@@ -25,7 +25,11 @@
           <ion-img [src]="wisata.photo"></ion-img>
           <ion-card-subtitle style="padding-top: 8px">
             <div class="subtitle">
-              <ion-label>{{ wisata.city }}</ion-label>
+              <div style="display: flex; align-items: flex-start;">
+                <img style="width: 16px; height: 16px; margin-right: 4px;" src="../../../../assets/icon/star.png" />
+                <ion-label *ngIf="wisata.rating > 0">{{ wisata.rating / wisata.reviewCounter | number:'1.0-2' }}/5</ion-label>
+                <ion-label *ngIf="wisata.rating == 0">-/5</ion-label>
+              </div>
               <ion-label *ngIf="isWisataOpen(wisata)" style="color: rgb(0, 250, 54);">Open</ion-label>
               <ion-label *ngIf="!isWisataOpen(wisata)" style="color: red;">Closed</ion-label>
             </div>
