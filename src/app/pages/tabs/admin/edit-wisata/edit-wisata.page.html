@@ -1,0 +1,277 @@
+<p>Hai</p>
+
+<!-- <link
+  href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start" style="position: absolute; top: 10px; left: 10px">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <div class="back-circle"></div>
+    <ion-title class="ion-text-center custom-font">Edit Wisata</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <div
+    class="ion-padding"
+    style="
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    "
+  >
+    <form
+      class="form ion-padding"
+      [formGroup]="validationForm"
+      (ngSubmit)="tryCreateWisata(validationForm.value)"
+    >
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="text"
+          name="address"
+          placeholder="address"
+          formControlName="address"
+        />
+      </div>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.address">
+          <div
+            class="error-message"
+            *ngIf="validationForm.get('address').hasError(validation.type) && (validationForm.get('address').dirty || validationForm.get('address').touched)"
+          >
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="text"
+          name="city"
+          placeholder="city"
+          formControlName="city"
+          required
+        />
+      </div>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.city">
+          <div
+            class="error-message"
+            *ngIf="validationForm.get('city').hasError(validation.type) && (validationForm.get('city').dirty || validationForm.get('city').touched)"
+          >
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="text"
+          name="closeHour"
+          placeholder="closeHour"
+          formControlName="closeHour"
+          required
+        />
+      </div>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.closeHour">
+          <div
+            class="error-message"
+            *ngIf="validationForm.get('closeHour').hasError(validation.type) && (validationForm.get('closeHour').dirty || validationForm.get('closeHour').touched)"
+          >
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="text"
+          name="description"
+          placeholder="description"
+          formControlName="description"
+          required
+        />
+      </div>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.description">
+          <div
+            class="error-message"
+            *ngIf="validationForm.get('description').hasError(validation.type) && (validationForm.get('description').dirty || validationForm.get('description').touched)"
+          >
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="text"
+          name="history"
+          placeholder="history"
+          formControlName="history"
+          required
+        />
+      </div>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.history">
+          <div
+            class="error-message"
+            *ngIf="validationForm.get('history').hasError(validation.type) && (validationForm.get('history').dirty || validationForm.get('history').touched)"
+          >
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="text"
+          name="name"
+          placeholder="name"
+          formControlName="name"
+          required
+        />
+      </div>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.name">
+          <div
+            class="error-message"
+            *ngIf="validationForm.get('name').hasError(validation.type) && (validationForm.get('name').dirty || validationForm.get('name').touched)"
+          >
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="text"
+          name="openHour"
+          placeholder="openHour"
+          formControlName="openHour"
+          required
+        />
+      </div>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.openHour">
+          <div
+            class="error-message"
+            *ngIf="validationForm.get('openHour').hasError(validation.type) && (validationForm.get('openHour').dirty || validationForm.get('openHour').touched)"
+          >
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="text"
+          name="photo"
+          placeholder="photo"
+          formControlName="photo"
+          required
+        />
+      </div>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.photo">
+          <div
+            class="error-message"
+            *ngIf="validationForm.get('photo').hasError(validation.type) && (validationForm.get('photo').dirty || validationForm.get('photo').touched)"
+          >
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="number"
+          name="price"
+          placeholder="price"
+          formControlName="price"
+          required
+        />
+      </div>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.price">
+          <div
+            class="error-message"
+            *ngIf="validationForm.get('price').hasError(validation.type) && (validationForm.get('price').dirty || validationForm.get('price').touched)"
+          >
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="number"
+          name="rating"
+          placeholder="rating"
+          formControlName="rating"
+          required
+        />
+      </div>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.rating">
+          <div
+            class="error-message"
+            *ngIf="validationForm.get('rating').hasError(validation.type) && (validationForm.get('rating').dirty || validationForm.get('rating').touched)"
+          >
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="number"
+          name="reviewCounter"
+          placeholder="reviewCounter"
+          formControlName="reviewCounter"
+          required
+        />
+      </div>
+      <div class="validation-errors">
+        <ng-container
+          *ngFor="let validation of validationMessages.reviewCounter"
+        >
+          <div
+            class="error-message"
+            *ngIf="validationForm.get('reviewCounter').hasError(validation.type) && (validationForm.get('reviewCounter').dirty || validationForm.get('reviewCounter').touched)"
+          >
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="container-form-btn" style="margin-top: 26px">
+        <button
+          class="form-btn custom-font"
+          type="submit"
+          [disabled]="!validationForm.valid"
+        >
+          Register
+        </button>
+      </div>
+      <label class="error-message">{{errorMessage}}</label>
+      <label class="success-message">{{successMessage}}</label>
+    </form>
+  </div>
+</ion-content> -->

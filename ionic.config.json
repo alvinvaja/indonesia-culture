@@ -1,0 +1,8 @@
+{
+  "name": "indonesia-culture",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

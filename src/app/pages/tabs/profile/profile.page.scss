@@ -1,0 +1,86 @@
+.backdrop {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 20;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginFirst {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 150px;
+    z-index: 21;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 4px 4px 4px #555555;
+}
+
+.reviewSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.review {
+    width: 100%;
+    background-color: white;
+    border-radius: 12px;
+    padding: 8px;
+    margin-top: 8px;
+
+    &__title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        color: #555555;
+    }
+
+    &__desc {
+        font-size: 12px;
+        margin-top: 8px;
+    }
+}
+
+ion-content {
+    --background:linear-gradient(to bottom,rgba(71, 242, 255,0.5), rgba(243, 15, 255,0.5)), url('../../../../assets/img/background.jpg') 0 0/100% 100% no-repeat ;
+}
+
+.custom-font {
+    font-family: 'Josefin Sans', sans-serif;
+  }
+  
+  ion-toolbar {
+    --background: transparent;
+  
+    ion-title {
+      padding: 10px 0 20px 0;
+      font-weight: 900;
+    }
+  
+    .back-circle {
+      z-index: -1;
+      width: 200px;
+      height: 200px;
+      background: #e5ecf1;
+      position: absolute;
+      border-radius: 50%;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+      bottom: 0;
+  
+    }
+}

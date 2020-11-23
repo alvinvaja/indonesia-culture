@@ -1,0 +1,67 @@
+<link
+  href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title class="ion-text-center custom-font">Admin</ion-title>
+    <ion-buttons slot="primary">
+      <ion-label style="margin-right: 8px" *ngIf="isLoggedIn()"
+        >Hi, {{ username }}</ion-label
+      >
+      <ion-icon
+        *ngIf="!isLoggedIn()"
+        size="large"
+        name="log-in-outline"
+        routerLink="/login"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="isLoggedIn()"
+        size="large"
+        name="log-out-outline"
+        (click)="logOut()"
+      ></ion-icon>
+    </ion-buttons>
+    <div class="back-circle"></div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="10" offset="1">
+        <div class="searchCity">
+          <img
+            src="../../../../assets/icon/location.png"
+            (click)="showCity()"
+          />
+          {{ defaultPlace }}
+        </div>
+        <ion-button [routerLink]="['./create-wisata']">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+        <ion-item-sliding #slidingItem *ngFor="let wisata of wisatas">
+          <ion-item-options side="start">
+            <ion-item-option color="primary" [routerLink]="['./edit-wisata', wisata.id]">
+              Edit
+            </ion-item-option>
+          </ion-item-options>
+          <ion-item-options side="end">
+            <ion-item-option color="danger" (click)="deleteData(wisata.id)">
+              Delete
+            </ion-item-option>
+          </ion-item-options>
+          <ion-item style="padding: 8px" [routerLink]="['./', wisata.id]">
+            {{ wisata.name }}
+
+            <div class="subtitle">
+              <ion-label *ngIf="isWisataOpen(wisata)" style="color: rgb(0, 250, 54)">Open</ion-label>
+              <ion-label *ngIf="!isWisataOpen(wisata)" style="color: red">Closed</ion-label>
+            </div>
+          </ion-item>
+        </ion-item-sliding>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

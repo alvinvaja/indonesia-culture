@@ -1,0 +1,19 @@
+<div class="container">
+  <div>Search your desired city!</div>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input type="text"
+            placeholder="Choose city"
+            aria-label="Number"
+            matInput
+            [formControl]="formControl"
+            [matAutocomplete]="auto" />
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let city of filteredCities | async" [value]="city">
+          {{ city }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <ion-button color="primary" (click)="onSubmit(formControl)">Submit</ion-button>
+  </form>
+</div>

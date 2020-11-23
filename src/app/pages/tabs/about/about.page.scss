@@ -1,0 +1,30 @@
+ion-content {
+    --background:linear-gradient(to bottom,rgba(71, 242, 255,0.5), rgba(243, 15, 255,0.5)), url('../../../../assets/img/background.jpg') 0 0/100% 100% no-repeat ;
+}
+.custom-font {
+    font-family: 'Josefin Sans', sans-serif;
+  }
+  
+  ion-toolbar {
+    --background: transparent;
+  
+    ion-title {
+      padding: 10px 0 20px 0;
+      font-weight: 900;
+    }
+  
+    .back-circle {
+      z-index: -1;
+      width: 200px;
+      height: 200px;
+      background: #e5ecf1;
+      position: absolute;
+      border-radius: 50%;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+      bottom: 0;
+  
+    }
+}
