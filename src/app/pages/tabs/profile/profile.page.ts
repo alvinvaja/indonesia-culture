@@ -16,6 +16,7 @@ import { LoadingController } from '@ionic/angular';
 export class ProfilePage implements OnInit {
   user: User;
   userReview: UserReview[];
+  interval: any;
 
   constructor(
     private userService: UsersService,
@@ -23,32 +24,39 @@ export class ProfilePage implements OnInit {
     private db: AngularFirestore,
     private camera: Camera,
     private loadCtrl: LoadingController
-  ) {}
+  ) {
+    this.user = { id: '', name: '-', age: 0, contribution: 0, email: '-', reviewCounter: 0, photo: '' };
+    this.interval = setInterval(() => {
+      const currentSession = localStorage.getItem('email') !== null ? localStorage.getItem('email') : '-';
+      if (this.user.email !== currentSession) {
+        if (currentSession === '-') {
+          this.user = { id: '', name: '-', age: 0, contribution: 0, email: '-', reviewCounter: 0, photo: '' };
+          this.userReview = [];
+        } else {
+          this.userService.getSingleUser(currentSession).subscribe(res => {
+            this.user = res[0];
+          });
+
+          this.userService.getUserReviews().pipe(take(1)).subscribe(res => {
+            const data = res[0];
+            this.db.collection<UserReview>('users/' + data.id + '/review').snapshotChanges().pipe(
+              map(reviews => {
+                return reviews.map(a => {
+                  const review = a.payload.doc.data();
+                  const id = a.payload.doc.id;
+                  return { id, ...review };
+                });
+              })
+            ).subscribe(review => {
+              this.userReview = review;
+            });
+          });
+        }
+      }
+    }, 200);
+  }
 
   ngOnInit() {
-    this.user = { id: '', name: '-', age: 0, contribution: 0, email: '-', reviewCounter: 0, photo: '' };
-    if (localStorage.getItem('email') !== null) {
-      this.userService.getAllUsers().subscribe(res => {
-        this.user = res.filter(user => {
-          return user.email === localStorage.getItem('email');
-        })[0];
-      });
-    }
-
-    this.userService.getUserReviews().pipe(take(1)).subscribe(res => {
-      const data = res[0];
-      this.db.collection<UserReview>('users/' + data.id + '/review').snapshotChanges().pipe(
-        map(reviews => {
-          return reviews.map(a => {
-            const review = a.payload.doc.data();
-            const id = a.payload.doc.id;
-            return { id, ...review };
-          });
-        })
-      ).subscribe(review => {
-        this.userReview = review;
-      });
-    });
   }
 
   updateProfilePhoto() {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { Wisata } from 'src/app/models/wisata.model';
 import { UsersService } from 'src/app/services/users.service';
 import { WisataService } from 'src/app/services/wisata.service';
@@ -19,8 +20,9 @@ export class ReviewPage implements OnInit {
     private wisataService: WisataService,
     private activatedRoute: ActivatedRoute,
     private userService: UsersService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private toastCtrl: ToastController
+  ) {}
 
   ngOnInit() {
     this.wisata = this.wisataService.getDummy();
@@ -60,7 +62,17 @@ export class ReviewPage implements OnInit {
 
     this.wisataService.addWisataReview(wisataReview);
     this.userService.addUserReview(userReview);
+    this.presentToast();
 
     this.router.navigateByUrl(this.backUrl);
+  }
+
+  async presentToast() {
+    const toast = await this.toastCtrl.create({
+      message: 'Review submitted successfully!',
+      duration: 1000
+    });
+
+    await toast.present();
   }
 }
