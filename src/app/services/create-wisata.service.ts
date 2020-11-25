@@ -39,8 +39,8 @@ export class CreateWisataService {
     price: number,
     rating: number,
     reviewCounter: number,
-    latitude: string,
-    longtitude: string
+    latitude: number,
+    longtitude: number
   ) {
     this.db.collection("wisata").add({
       address,
