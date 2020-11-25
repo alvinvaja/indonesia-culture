@@ -1,37 +1,39 @@
-import { CreateWisataService } from './../../../services/create-wisata.service';
-import { Router } from '@angular/router';
+import { CreateWisataService } from "./../../../services/create-wisata.service";
+import { Router } from "@angular/router";
 // register.page.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import {
   FormGroup,
   FormBuilder,
   Validators,
   FormControl,
-} from '@angular/forms';
-import { LoadingController, NavController } from '@ionic/angular';
+} from "@angular/forms";
+import { LoadingController, NavController } from "@ionic/angular";
 
 @Component({
-  selector: 'app-create-wisata',
-  templateUrl: './create-wisata.page.html',
-  styleUrls: ['./create-wisata.page.scss'],
+  selector: "app-create-wisata",
+  templateUrl: "./create-wisata.page.html",
+  styleUrls: ["./create-wisata.page.scss"],
 })
 export class CreateWisataPage implements OnInit {
   validationForm: FormGroup;
-  errorMessage = '';
-  successMessage = '';
+  errorMessage = "";
+  successMessage = "";
 
   validationMessages = {
-    address: [{ type: 'required', message: 'address is required.' }],
-    city: [{ type: 'required', message: 'city is required.' }],
-    closeHour: [{ type: 'required', message: 'closeHour is required.' }],
-    description: [{ type: 'required', message: 'description is required' }],
-    history: [{ type: 'required', message: 'history is required' }],
-    name: [{ type: 'required', message: 'name is required' }],
-    openHour: [{ type: 'required', message: 'openHour is required' }],
-    photo: [{ type: 'required', message: 'photo is required' }],
-    price: [{ type: 'required', message: 'price is required' }],
-    rating: [{ type: 'required', message: 'rating is required' }],
-    reviewCounter: [{ type: 'required', message: 'reviewCounter is required' }],
+    address: [{ type: "required", message: "address is required." }],
+    city: [{ type: "required", message: "city is required." }],
+    closeHour: [{ type: "required", message: "closeHour is required." }],
+    description: [{ type: "required", message: "description is required" }],
+    history: [{ type: "required", message: "history is required" }],
+    name: [{ type: "required", message: "name is required" }],
+    openHour: [{ type: "required", message: "openHour is required" }],
+    photo: [{ type: "required", message: "photo is required" }],
+    price: [{ type: "required", message: "price is required" }],
+    latitude: [{ type: "required", message: "price is required" }],
+    longtitude: [{ type: "required", message: "price is required" }],
+    // rating: [{ type: 'required', message: 'rating is required' }],
+    // reviewCounter: [{ type: 'required', message: 'reviewCounter is required' }],
   };
 
   constructor(
@@ -44,23 +46,28 @@ export class CreateWisataPage implements OnInit {
 
   ngOnInit() {
     this.validationForm = this.formBuilder.group({
-      address: new FormControl('', Validators.compose([Validators.required])),
-      city: new FormControl('', Validators.compose([Validators.required])),
-      closeHour: new FormControl('', Validators.compose([Validators.required])),
+      address: new FormControl("", Validators.compose([Validators.required])),
+      city: new FormControl("", Validators.compose([Validators.required])),
+      closeHour: new FormControl("", Validators.compose([Validators.required])),
       description: new FormControl(
-        '',
+        "",
         Validators.compose([Validators.required])
       ),
-      history: new FormControl('', Validators.compose([Validators.required])),
-      name: new FormControl('', Validators.compose([Validators.required])),
-      openHour: new FormControl('', Validators.compose([Validators.required])),
-      photo: new FormControl('', Validators.compose([Validators.required])),
-      price: new FormControl('', Validators.compose([Validators.required])),
-      rating: new FormControl('', Validators.compose([Validators.required])),
-      reviewCounter: new FormControl(
-        '',
+      history: new FormControl("", Validators.compose([Validators.required])),
+      name: new FormControl("", Validators.compose([Validators.required])),
+      openHour: new FormControl("", Validators.compose([Validators.required])),
+      photo: new FormControl("", Validators.compose([Validators.required])),
+      price: new FormControl("", Validators.compose([Validators.required])),
+      latitude: new FormControl("", Validators.compose([Validators.required])),
+      longtitude: new FormControl(
+        "",
         Validators.compose([Validators.required])
       ),
+      // rating: new FormControl("", Validators.compose([Validators.required])),
+      // reviewCounter: new FormControl(
+      //   "",
+      //   Validators.compose([Validators.required])
+      // ),
     });
   }
 
@@ -80,9 +87,10 @@ export class CreateWisataPage implements OnInit {
     const openHour = this.validationForm.value.openHour;
     const photo = this.validationForm.value.photo;
     const price = this.validationForm.value.price;
-    const rating = this.validationForm.value.rating;
-    const reviewCounter = this.validationForm.value.reviewCounter;
-
+    const rating = 0;
+    const reviewCounter = 0;
+    const latitude = this.validationForm.value.latitude;
+    const longtitude = this.validationForm.value.longtitude;
     this.createWisataService.registerToFireStore(
       address,
       city,
@@ -94,8 +102,10 @@ export class CreateWisataPage implements OnInit {
       photo,
       price,
       rating,
-      reviewCounter
+      reviewCounter,
+      latitude,
+      longtitude
     );
-    this.router.navigateByUrl('/admin');
+    this.router.navigateByUrl("/admin");
   }
 }
