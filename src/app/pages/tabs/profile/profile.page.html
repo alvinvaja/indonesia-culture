@@ -27,20 +27,33 @@
           <ion-label style="font-size: 18px; margin-top: 8px;">Contribution : {{ user.contribution }}</ion-label>
         </div>
         <div class="reviewSection">
-          <p style="font-size: 20px; color: white; margin: 0;">Past Reviews</p>
-          <ion-button size="small" style="text-transform: none !important; font-size: 12px;">Show Image</ion-button>
+          <p *ngIf="showReview" style="font-size: 20px; color: white; margin: 0;">Past Reviews</p>
+          <p *ngIf="!showReview" style="font-size: 20px; color: white; margin: 0;">Past Photos</p>
+          <ion-button *ngIf="showReview" (click)="toggleReview()" size="small" style="text-transform: none !important; font-size: 12px;">Show Image</ion-button>
+          <ion-button *ngIf="!showReview" (click)="toggleReview()" size="small" style="text-transform: none !important; font-size: 12px;">Show Review</ion-button>
         </div>
-        <div *ngFor="let review of userReview" class="review">
-          <div class="review__title">
-            <div>{{ review.wisataName }}</div>
-            <div style="display: flex; align-items: flex-start;">
-              <img style="width: 16px; height: 16px;" src="../../../../assets/icon/star.png" />
-              <div style="margin-left: 4px">{{ review.rating }}/5</div>
+        <div *ngIf="showReview">
+          <div *ngFor="let review of userReview" class="review">
+            <div class="review__title">
+              <div>{{ review.wisataName }}</div>
+              <div style="display: flex; align-items: flex-start;">
+                <img style="width: 16px; height: 16px;" src="../../../../assets/icon/star.png" />
+                <div style="margin-left: 4px">{{ review.rating }}/5</div>
+              </div>
+            </div>
+            <div class="review__desc">
+              {{ review.review }}
             </div>
           </div>
-          <div class="review__desc">
-            {{ review.review }}
-          </div>
+        </div>
+        <div *ngIf="!showReview">
+          <ion-grid style="padding: 0">
+            <ion-row>
+              <ion-col size="6" *ngFor="let photo of userPhotos">
+                <img style="width: 100%; height: 100%;" src="{{ photo.photo }}" />
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </div>
       </ion-col>
     </ion-row>

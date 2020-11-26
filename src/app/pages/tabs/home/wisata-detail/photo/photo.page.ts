@@ -44,7 +44,9 @@ export class PhotoPage implements OnInit {
   choosePhoto() {
     this.camera.getPicture({
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      destinationType: this.camera.DestinationType.DATA_URL
+      destinationType: this.camera.DestinationType.DATA_URL,
+      targetWidth: 600,
+      targetHeight: 400
     }).then((res) => {
       this.url = 'data:image/jpeg;base64,' + res;
       this.presentLoading();

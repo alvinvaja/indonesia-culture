@@ -7,6 +7,8 @@ import { UsersService } from 'src/app/services/users.service';
 import { map, take } from 'rxjs/operators';
 import { Camera } from '@ionic-native/camera/ngx';
 import { LoadingController } from '@ionic/angular';
+import { Wisata } from 'src/app/models/wisata.model';
+import { WisataPhoto } from 'src/app/models/wisataPhoto.model';
 
 @Component({
   selector: 'app-profile',
@@ -15,8 +17,10 @@ import { LoadingController } from '@ionic/angular';
 })
 export class ProfilePage implements OnInit {
   user: User;
-  userReview: UserReview[];
+  userReview: UserReview[] = [];
+  userPhotos: WisataPhoto[] = [];
   interval: any;
+  showReview: boolean;
 
   constructor(
     private userService: UsersService,
@@ -26,6 +30,12 @@ export class ProfilePage implements OnInit {
     private loadCtrl: LoadingController
   ) {
     this.user = { id: '', name: '-', age: 0, contribution: 0, email: '-', reviewCounter: 0, photo: '' };
+    this.userPhotos = [
+      { photo: 'https://dummyimage.com/600x400/000/fff' },
+      { photo: 'https://dummyimage.com/600x400/000/fff' },
+      { photo: 'https://dummyimage.com/600x400/000/fff' }
+    ];
+    this.showReview = true;
     this.interval = setInterval(() => {
       const currentSession = localStorage.getItem('email') !== null ? localStorage.getItem('email') : '-';
       if (this.user.email !== currentSession) {
@@ -37,7 +47,7 @@ export class ProfilePage implements OnInit {
             this.user = res[0];
           });
 
-          this.userService.getUserReviews().pipe(take(1)).subscribe(res => {
+          this.userService.getSingleUser(currentSession).pipe(take(1)).subscribe(res => {
             const data = res[0];
             this.db.collection<UserReview>('users/' + data.id + '/review').snapshotChanges().pipe(
               map(reviews => {
@@ -50,6 +60,19 @@ export class ProfilePage implements OnInit {
             ).subscribe(review => {
               this.userReview = review;
             });
+
+            // Will be used later
+            // this.db.collection<WisataPhoto>('users/' + data.id + '/photos').snapshotChanges().pipe(
+            //   map(reviews => {
+            //     return reviews.map(a => {
+            //       const review = a.payload.doc.data();
+            //       const id = a.payload.doc.id;
+            //       return { id, ...review };
+            //     });
+            //   })
+            // ).subscribe(photos => {
+            //   this.userPhotos = photos;
+            // });
           });
         }
       }
@@ -62,7 +85,9 @@ export class ProfilePage implements OnInit {
   updateProfilePhoto() {
     this.camera.getPicture({
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      destinationType: this.camera.DestinationType.DATA_URL
+      destinationType: this.camera.DestinationType.DATA_URL,
+      targetWidth: 200,
+      targetHeight: 200
     }).then((res) => {
       this.user.photo = 'data:image/jpeg;base64,' + res;
       this.presentLoading();
@@ -89,5 +114,9 @@ export class ProfilePage implements OnInit {
     });
 
     await loading.present();
+  }
+
+  toggleReview() {
+    this.showReview = !this.showReview;
   }
 }

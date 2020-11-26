@@ -41,13 +41,6 @@ export class UsersService {
     );
   }
 
-  getUserReviews() {
-    const email = localStorage.getItem('email');
-    const user = this.getSingleUser(email);
-
-    return user;
-  }
-
   registerToFireStore(email: string, name: string, age: number, contribution: number) {
     this.db.collection('users').add({
       email,

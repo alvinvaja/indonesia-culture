@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Wisata } from '../models/wisata.model';
 import { WisataReview } from '../models/wisataReview.model';
+import { WisataPhoto } from '../models/wisataPhoto.model';
 import { UsersService } from './users.service';
 
 @Injectable({
@@ -40,6 +41,18 @@ export class WisataService {
 
   getWisataReviews(key: string) {
     return this.db.collection<WisataReview>('wisata/' + key + '/review').snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return {id, ...data };
+        });
+      })
+    );
+  }
+
+  getWisataPhotos(key: string) {
+    return this.db.collection<WisataPhoto>('wisata/' + key + '/photos').snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
