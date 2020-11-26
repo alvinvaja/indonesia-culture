@@ -219,17 +219,17 @@
         <input
           class="input"
           type="number"
-          name="rating"
-          placeholder="rating"
-          formControlName="rating"
+          name="latitude"
+          placeholder="latitude"
+          formControlName="latitude"
           required
         />
       </div>
       <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.rating">
+        <ng-container *ngFor="let validation of validationMessages.latitude">
           <div
             class="error-message"
-            *ngIf="validationForm.get('rating').hasError(validation.type) && (validationForm.get('rating').dirty || validationForm.get('rating').touched)"
+            *ngIf="validationForm.get('latitude').hasError(validation.type) && (validationForm.get('latitude').dirty || validationForm.get('latitude').touched)"
           >
             {{ validation.message }}
           </div>
@@ -240,19 +240,17 @@
         <input
           class="input"
           type="number"
-          name="reviewCounter"
-          placeholder="reviewCounter"
-          formControlName="reviewCounter"
+          name="longtitude"
+          placeholder="longtitude"
+          formControlName="longtitude"
           required
         />
       </div>
       <div class="validation-errors">
-        <ng-container
-          *ngFor="let validation of validationMessages.reviewCounter"
-        >
+        <ng-container *ngFor="let validation of validationMessages.longtitude">
           <div
             class="error-message"
-            *ngIf="validationForm.get('reviewCounter').hasError(validation.type) && (validationForm.get('reviewCounter').dirty || validationForm.get('reviewCounter').touched)"
+            *ngIf="validationForm.get('longtitude').hasError(validation.type) && (validationForm.get('longtitude').dirty || validationForm.get('longtitude').touched)"
           >
             {{ validation.message }}
           </div>

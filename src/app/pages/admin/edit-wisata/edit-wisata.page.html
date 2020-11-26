@@ -1,6 +1,4 @@
-<p>Hai</p>
-
-<!-- <link
+<link
   href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
   rel="stylesheet"
 />
@@ -11,7 +9,7 @@
       <ion-back-button defaultHref="/tabs/home"></ion-back-button>
     </ion-buttons>
     <div class="back-circle"></div>
-    <ion-title class="ion-text-center custom-font">Edit Wisata</ion-title>
+    <ion-title class="ion-text-center custom-font">{{wisata.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -25,49 +23,24 @@
       height: 100%;
     "
   >
-    <form
-      class="form ion-padding"
-      [formGroup]="validationForm"
-      (ngSubmit)="tryCreateWisata(validationForm.value)"
-    >
+    <form class="form ion-padding" (ngSubmit)="update(wisata)">
       <div class="wrap-input">
         <input
           class="input"
           type="text"
           name="address"
+          [(ngModel)]="wisata.address"
           placeholder="address"
-          formControlName="address"
         />
-      </div>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.address">
-          <div
-            class="error-message"
-            *ngIf="validationForm.get('address').hasError(validation.type) && (validationForm.get('address').dirty || validationForm.get('address').touched)"
-          >
-            {{ validation.message }}
-          </div>
-        </ng-container>
       </div>
       <div class="wrap-input">
         <input
           class="input"
           type="text"
           name="city"
+          [(ngModel)]="wisata.city"
           placeholder="city"
-          formControlName="city"
-          required
         />
-      </div>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.city">
-          <div
-            class="error-message"
-            *ngIf="validationForm.get('city').hasError(validation.type) && (validationForm.get('city').dirty || validationForm.get('city').touched)"
-          >
-            {{ validation.message }}
-          </div>
-        </ng-container>
       </div>
 
       <div class="wrap-input">
@@ -75,20 +48,9 @@
           class="input"
           type="text"
           name="closeHour"
-          placeholder="closeHour"
-          formControlName="closeHour"
-          required
+          [(ngModel)]="wisata.closeHour"
+          placeholder="close Hour"
         />
-      </div>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.closeHour">
-          <div
-            class="error-message"
-            *ngIf="validationForm.get('closeHour').hasError(validation.type) && (validationForm.get('closeHour').dirty || validationForm.get('closeHour').touched)"
-          >
-            {{ validation.message }}
-          </div>
-        </ng-container>
       </div>
 
       <div class="wrap-input">
@@ -96,20 +58,9 @@
           class="input"
           type="text"
           name="description"
+          [(ngModel)]="wisata.description"
           placeholder="description"
-          formControlName="description"
-          required
         />
-      </div>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.description">
-          <div
-            class="error-message"
-            *ngIf="validationForm.get('description').hasError(validation.type) && (validationForm.get('description').dirty || validationForm.get('description').touched)"
-          >
-            {{ validation.message }}
-          </div>
-        </ng-container>
       </div>
 
       <div class="wrap-input">
@@ -117,20 +68,9 @@
           class="input"
           type="text"
           name="history"
+          [(ngModel)]="wisata.history"
           placeholder="history"
-          formControlName="history"
-          required
         />
-      </div>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.history">
-          <div
-            class="error-message"
-            *ngIf="validationForm.get('history').hasError(validation.type) && (validationForm.get('history').dirty || validationForm.get('history').touched)"
-          >
-            {{ validation.message }}
-          </div>
-        </ng-container>
       </div>
 
       <div class="wrap-input">
@@ -138,20 +78,9 @@
           class="input"
           type="text"
           name="name"
+          [(ngModel)]="wisata.name"
           placeholder="name"
-          formControlName="name"
-          required
         />
-      </div>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.name">
-          <div
-            class="error-message"
-            *ngIf="validationForm.get('name').hasError(validation.type) && (validationForm.get('name').dirty || validationForm.get('name').touched)"
-          >
-            {{ validation.message }}
-          </div>
-        </ng-container>
       </div>
 
       <div class="wrap-input">
@@ -159,20 +88,9 @@
           class="input"
           type="text"
           name="openHour"
-          placeholder="openHour"
-          formControlName="openHour"
-          required
+          [(ngModel)]="wisata.openHour"
+          placeholder="Open Hour"
         />
-      </div>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.openHour">
-          <div
-            class="error-message"
-            *ngIf="validationForm.get('openHour').hasError(validation.type) && (validationForm.get('openHour').dirty || validationForm.get('openHour').touched)"
-          >
-            {{ validation.message }}
-          </div>
-        </ng-container>
       </div>
 
       <div class="wrap-input">
@@ -180,20 +98,9 @@
           class="input"
           type="text"
           name="photo"
-          placeholder="photo"
-          formControlName="photo"
-          required
+          [(ngModel)]="wisata.photo"
+          placeholder="Photo"
         />
-      </div>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.photo">
-          <div
-            class="error-message"
-            *ngIf="validationForm.get('photo').hasError(validation.type) && (validationForm.get('photo').dirty || validationForm.get('photo').touched)"
-          >
-            {{ validation.message }}
-          </div>
-        </ng-container>
       </div>
 
       <div class="wrap-input">
@@ -201,77 +108,35 @@
           class="input"
           type="number"
           name="price"
+          [(ngModel)]="wisata.price"
           placeholder="price"
-          formControlName="price"
-          required
         />
-      </div>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.price">
-          <div
-            class="error-message"
-            *ngIf="validationForm.get('price').hasError(validation.type) && (validationForm.get('price').dirty || validationForm.get('price').touched)"
-          >
-            {{ validation.message }}
-          </div>
-        </ng-container>
       </div>
 
       <div class="wrap-input">
         <input
           class="input"
           type="number"
-          name="rating"
-          placeholder="rating"
-          formControlName="rating"
-          required
+          name="latitude"
+          [(ngModel)]="wisata.latitude"
+          placeholder="latitude"
         />
       </div>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.rating">
-          <div
-            class="error-message"
-            *ngIf="validationForm.get('rating').hasError(validation.type) && (validationForm.get('rating').dirty || validationForm.get('rating').touched)"
-          >
-            {{ validation.message }}
-          </div>
-        </ng-container>
-      </div>
-
       <div class="wrap-input">
         <input
           class="input"
           type="number"
-          name="reviewCounter"
-          placeholder="reviewCounter"
-          formControlName="reviewCounter"
-          required
+          name="longtitude"
+          [(ngModel)]="wisata.longtitude"
+          placeholder="longtitude"
         />
-      </div>
-      <div class="validation-errors">
-        <ng-container
-          *ngFor="let validation of validationMessages.reviewCounter"
-        >
-          <div
-            class="error-message"
-            *ngIf="validationForm.get('reviewCounter').hasError(validation.type) && (validationForm.get('reviewCounter').dirty || validationForm.get('reviewCounter').touched)"
-          >
-            {{ validation.message }}
-          </div>
-        </ng-container>
       </div>
 
       <div class="container-form-btn" style="margin-top: 26px">
-        <button
-          class="form-btn custom-font"
-          type="submit"
-          [disabled]="!validationForm.valid"
-        >
-          Register
-        </button>
+        <button class="form-btn custom-font" type="submit">Update</button>
       </div>
-      <label class="error-message">{{errorMessage}}</label>
-      <label class="success-message">{{successMessage}}</label>
+      <!-- <label class="error-message">{{errorMessage}}</label>
+      <label class="success-message">{{successMessage}}</label> -->
     </form>
   </div>
-</ion-content> -->
+</ion-content>

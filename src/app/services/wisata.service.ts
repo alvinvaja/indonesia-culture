@@ -8,25 +8,61 @@ import { WisataPhoto } from '../models/wisataPhoto.model';
 import { UsersService } from './users.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WisataService {
+  collectionname: Wisata;
   private hardcodeCity = [
-    'Jakarta', 'Magelang', 'Semarang', 'Jambi', 'Palembang', 'Lampung',
-    'Bogor', 'Depok', 'Tangerang', 'Bekasi', 'Bandung', 'Surabaya', 'Medan',
-    'Makassar', 'Padang', 'Pekanbaru', 'Denpasar', 'Manado', 'Malang',
-    'Pontianak', 'Kupang', 'Yogyakarta', 'Banjarmasin', 'Cirebon', 'Cilegon',
-    'Serang', 'Bengkulu', 'Kediri', 'Pekalongan', 'Tegal', 'Sukabumi', 'Balikpapan',
-    'Palu', 'Sabang', 'Merauke', 'Banda Aceh', 'Cimahi', 'Gorontalo', 'Madiun', 'Jayapura'
+    'Jakarta',
+    'Magelang',
+    'Semarang',
+    'Jambi',
+    'Palembang',
+    'Lampung',
+    'Bogor',
+    'Depok',
+    'Tangerang',
+    'Bekasi',
+    'Bandung',
+    'Surabaya',
+    'Medan',
+    'Makassar',
+    'Padang',
+    'Pekanbaru',
+    'Denpasar',
+    'Manado',
+    'Malang',
+    'Pontianak',
+    'Kupang',
+    'Yogyakarta',
+    'Banjarmasin',
+    'Cirebon',
+    'Cilegon',
+    'Serang',
+    'Bengkulu',
+    'Kediri',
+    'Pekalongan',
+    'Tegal',
+    'Sukabumi',
+    'Balikpapan',
+    'Palu',
+    'Sabang',
+    'Merauke',
+    'Banda Aceh',
+    'Cimahi',
+    'Gorontalo',
+    'Madiun',
+    'Jayapura',
   ];
 
   private wisatas: Observable<Wisata[]>;
   private wisatasCollection: AngularFirestoreCollection<Wisata>;
+
   constructor(private db: AngularFirestore, private userService: UsersService) {
     this.wisatasCollection = db.collection<Wisata>('wisata');
     this.wisatas = this.wisatasCollection.snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
+      map((actions) => {
+        return actions.map((a) => {
           const data = a.payload.doc.data();
           const id = a.payload.doc.id;
           return { id, ...data };
@@ -40,15 +76,18 @@ export class WisataService {
   }
 
   getWisataReviews(key: string) {
-    return this.db.collection<WisataReview>('wisata/' + key + '/review').snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return {id, ...data };
-        });
-      })
-    );
+    return this.db
+      .collection<WisataReview>('wisata/' + key + '/review')
+      .snapshotChanges()
+      .pipe(
+        map((actions) => {
+          return actions.map((a) => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+      );
   }
 
   getWisataPhotos(key: string) {
@@ -80,40 +119,55 @@ export class WisataService {
       history: '',
       photo: '',
       reviewCounter: 0,
-      rating: 0
+      rating: 0,
+      longtitude: 0,
+      latitude: 0,
     };
   }
 
   updateWisataRating(rating: number, wisata: Wisata) {
-    this.getAllWisatas().pipe(take(1)).subscribe(res => {
-      res.forEach(data => {
-        if (data.id === wisata.id) {
-          const newSize = data.reviewCounter + 1;
-          const newRating = data.rating + rating;
-          this.db.collection('wisata').doc(wisata.id).update({
-            rating: newRating,
-            reviewCounter: newSize
-          });
-        }
+    this.getAllWisatas()
+      .pipe(take(1))
+      .subscribe((res) => {
+        res.forEach((data) => {
+          if (data.id === wisata.id) {
+            const newSize = data.reviewCounter + 1;
+            const newRating = data.rating + rating;
+            this.db.collection('wisata').doc(wisata.id).update({
+              rating: newRating,
+              reviewCounter: newSize,
+            });
+          }
+        });
       });
-    });
   }
 
   addWisataReview(review: any) {
     this.updateWisataRating(review.rating, review.wisata);
 
-    this.userService.getSingleUser(review.email).pipe(take(1)).subscribe(res => {
-      const data = res[0];
-      this.db.collection('wisata').doc(review.wisata.id).collection('review').add({
-        username: data.name,
-        userphoto: data.photo,
-        rating: review.rating,
-        review: review.review
+    this.userService
+      .getSingleUser(review.email)
+      .pipe(take(1))
+      .subscribe((res) => {
+        const data = res[0];
+        this.db
+          .collection('wisata')
+          .doc(review.wisata.id)
+          .collection('review')
+          .add({
+            username: data.name,
+            userphoto: data.photo,
+            rating: review.rating,
+            review: review.review,
+          });
       });
-    });
   }
 
   delete(wisataId: string): Promise<void> {
     return this.db.doc('wisata/' + wisataId).delete();
+  }
+
+  update_wisata(recordId, record) {
+    this.db.doc('wisata/' + recordId).update(record);
   }
 }
