@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Wisata } from 'src/app/models/wisata.model';
-import { WisataReview } from 'src/app/models/wisataReview.model';
-import { WisataService } from 'src/app/services/wisata.service';
-import { take } from 'rxjs/operators';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { Wisata } from "src/app/models/wisata.model";
+import { WisataReview } from "src/app/models/wisataReview.model";
+import { WisataService } from "src/app/services/wisata.service";
+import { take } from "rxjs/operators";
 
 @Component({
-  selector: 'app-wisata-detail',
-  templateUrl: './wisata-detail.page.html',
-  styleUrls: ['./wisata-detail.page.scss'],
+  selector: "app-wisata-detail",
+  templateUrl: "./wisata-detail.page.html",
+  styleUrls: ["./wisata-detail.page.scss"],
 })
 export class WisataDetailPage implements OnInit {
   username: string;
@@ -19,26 +19,35 @@ export class WisataDetailPage implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {
     setInterval(() => {
-      this.username = localStorage.getItem('name') === null ? '' : localStorage.getItem('name');
+      this.username =
+        localStorage.getItem("name") === null
+          ? ""
+          : localStorage.getItem("name");
     }, 2);
   }
 
   ngOnInit() {
-    this.username = '';
+    this.username = "";
     this.wisata = this.wisataService.getDummy();
-    this.activatedRoute.paramMap.subscribe(paramMap => {
-      if (!paramMap.has('wisataId')) { return; }
-      const wisataId = paramMap.get('wisataId');
+    this.activatedRoute.paramMap.subscribe((paramMap) => {
+      if (!paramMap.has("wisataId")) {
+        return;
+      }
+      const wisataId = paramMap.get("wisataId");
 
-      this.wisataService.getAllWisatas().pipe(take(1)).subscribe(res => {
-        res.forEach(data => {
-          if (data.id === wisataId) {
-            this.wisata = data;
-          }
+      this.wisataService
+        .getAllWisatas()
+        .pipe(take(1))
+        .subscribe((res) => {
+          res.forEach((data) => {
+            if (data.id === wisataId) {
+              this.wisata = data;
+              console.log(this.wisata);
+            }
+          });
         });
-      });
 
-      this.wisataService.getWisataReviews(wisataId).subscribe(res => {
+      this.wisataService.getWisataReviews(wisataId).subscribe((res) => {
         this.wisataReview = res;
       });
     });

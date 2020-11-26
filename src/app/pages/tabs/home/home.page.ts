@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Wisata } from 'src/app/models/wisata.model';
-import { WisataService } from 'src/app/services/wisata.service';
-import firebase from 'firebase';
-import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
-import { CityModalComponent } from 'src/app/components/city-modal/city-modal.component';
+import { Component, OnInit } from "@angular/core";
+import { Wisata } from "src/app/models/wisata.model";
+import { WisataService } from "src/app/services/wisata.service";
+import firebase from "firebase";
+import { Router } from "@angular/router";
+import { ModalController } from "@ionic/angular";
+import { CityModalComponent } from "src/app/components/city-modal/city-modal.component";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  selector: "app-home",
+  templateUrl: "./home.page.html",
+  styleUrls: ["./home.page.scss"],
 })
 export class HomePage implements OnInit {
   public wisatas: Wisata[];
@@ -24,21 +24,24 @@ export class HomePage implements OnInit {
   ) {
     setInterval(() => {
       this.now = new Date();
-      this.username = localStorage.getItem('name') === null ? '' : localStorage.getItem('name');
+      this.username =
+        localStorage.getItem("name") === null
+          ? ""
+          : localStorage.getItem("name");
     }, 1);
   }
 
   ngOnInit() {
-    this.defaultPlace = 'Jakarta';
+    this.defaultPlace = "Jakarta";
     this.subscribeWisata();
   }
 
   async showCity() {
     const modal = await this.modalCtrl.create({
-      component: CityModalComponent
+      component: CityModalComponent,
     });
 
-    modal.onDidDismiss().then(resultData => {
+    modal.onDidDismiss().then((resultData) => {
       this.defaultPlace = resultData.data.city;
       this.subscribeWisata();
     });
@@ -47,14 +50,14 @@ export class HomePage implements OnInit {
   }
 
   subscribeWisata() {
-    this.wisataService.getAllWisatas().subscribe(res => {
+    this.wisataService.getAllWisatas().subscribe((res) => {
       this.wisatas = res;
       this.wisatas = this.filterCity();
     });
   }
 
   filterCity() {
-    return this.wisatas.filter(wisata => {
+    return this.wisatas.filter((wisata) => {
       return wisata.city === this.defaultPlace;
     });
   }
@@ -66,21 +69,23 @@ export class HomePage implements OnInit {
     const hour = this.now.getHours();
     let hourString = String(this.now.getHours());
     if (hour < 10) {
-      hourString = '0' + hourString;
+      hourString = "0" + hourString;
     }
 
     const minute = this.now.getMinutes();
     let minuteString = String(this.now.getMinutes());
     if (minute < 10) {
-      minuteString = '0' + minuteString;
+      minuteString = "0" + minuteString;
     }
-    const now = this.extractTimetoNumber(String(hourString + ':' + minuteString));
+    const now = this.extractTimetoNumber(
+      String(hourString + ":" + minuteString)
+    );
 
     return now >= start && now <= end;
   }
 
   isLoggedIn() {
-    return localStorage.getItem('name') === null ? false : true;
+    return localStorage.getItem("name") === null ? false : true;
   }
 
   extractTimetoNumber(waktu: string) {
@@ -91,8 +96,8 @@ export class HomePage implements OnInit {
   }
 
   logOut() {
-    localStorage.removeItem('name');
-    localStorage.removeItem('email');
-    this.router.navigateByUrl('/login');
+    localStorage.removeItem("name");
+    localStorage.removeItem("email");
+    this.router.navigateByUrl("/login");
   }
 }

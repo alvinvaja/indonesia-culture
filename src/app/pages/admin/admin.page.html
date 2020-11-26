@@ -4,14 +4,27 @@
 />
 
 <ion-header class="ion-no-border">
-	<ion-toolbar>
+  <ion-toolbar>
     <ion-title class="ion-text-center custom-font">Home</ion-title>
-    <ion-buttons slot="primary" style="position: absolute; top: 10px; right: 10px;">
-      <ion-icon *ngIf="!isLoggedIn()" size="large" name="log-in-outline" routerLink="/login"></ion-icon>
-      <ion-icon *ngIf="isLoggedIn()" size="large" name="log-out-outline" (click)="logOut()"></ion-icon>
+    <ion-buttons
+      slot="primary"
+      style="position: absolute; top: 10px; right: 10px"
+    >
+      <ion-icon
+        *ngIf="!isLoggedIn()"
+        size="large"
+        name="log-in-outline"
+        routerLink="/login"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="isLoggedIn()"
+        size="large"
+        name="log-out-outline"
+        (click)="logOut()"
+      ></ion-icon>
     </ion-buttons>
     <div class="back-circle"></div>
-	</ion-toolbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen="true">
@@ -28,9 +41,15 @@
         <ion-button [routerLink]="['./create-wisata']">
           <ion-icon name="add"></ion-icon>
         </ion-button>
+        <ion-button [routerLink]="['./']">
+          <ion-icon name="alert-outline"></ion-icon>
+        </ion-button>
         <ion-item-sliding #slidingItem *ngFor="let wisata of wisatas">
           <ion-item-options side="start">
-            <ion-item-option color="primary" [routerLink]="['./edit-wisata', wisata.id]">
+            <ion-item-option
+              color="primary"
+              [routerLink]="['./edit-wisata', wisata.id]"
+            >
               Edit
             </ion-item-option>
           </ion-item-options>
@@ -43,8 +62,14 @@
             {{ wisata.name }}
 
             <div class="subtitle">
-              <ion-label *ngIf="isWisataOpen(wisata)" style="color: rgb(0, 250, 54)">Open</ion-label>
-              <ion-label *ngIf="!isWisataOpen(wisata)" style="color: red">Closed</ion-label>
+              <ion-label
+                *ngIf="isWisataOpen(wisata)"
+                style="color: rgb(0, 250, 54)"
+                >Open</ion-label
+              >
+              <ion-label *ngIf="!isWisataOpen(wisata)" style="color: red"
+                >Closed</ion-label
+              >
             </div>
           </ion-item>
         </ion-item-sliding>

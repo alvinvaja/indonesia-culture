@@ -13,6 +13,7 @@ import { UsersService } from "./users.service";
   providedIn: "root",
 })
 export class WisataService {
+  collectionname: Wisata;
   private hardcodeCity = [
     "Jakarta",
     "Magelang",
@@ -58,6 +59,7 @@ export class WisataService {
 
   private wisatas: Observable<Wisata[]>;
   private wisatasCollection: AngularFirestoreCollection<Wisata>;
+
   constructor(private db: AngularFirestore, private userService: UsersService) {
     this.wisatasCollection = db.collection<Wisata>("wisata");
     this.wisatas = this.wisatasCollection.snapshotChanges().pipe(
@@ -153,5 +155,9 @@ export class WisataService {
 
   delete(wisataId: string): Promise<void> {
     return this.db.doc("wisata/" + wisataId).delete();
+  }
+
+  update_wisata(recordId, record) {
+    this.db.doc("wisata/" + recordId).update(record);
   }
 }
