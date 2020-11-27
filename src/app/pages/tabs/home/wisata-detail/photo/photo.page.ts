@@ -5,6 +5,10 @@ import { WisataService } from 'src/app/services/wisata.service';
 import { take } from 'rxjs/operators';
 import { LoadingController } from '@ionic/angular';
 import { Camera } from '@ionic-native/camera/ngx';
+import { StorageService } from 'src/app/services/storage.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { WisataPhoto } from 'src/app/models/wisataPhoto.model';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-photo',
@@ -18,9 +22,12 @@ export class PhotoPage implements OnInit {
 
   constructor(
     private wisataService: WisataService,
+    private userService: UsersService,
     private activatedRoute: ActivatedRoute,
     private loadCtrl: LoadingController,
-    private camera: Camera
+    private camera: Camera,
+    private storageService: StorageService,
+    private db: AngularFirestore
   ) { }
 
   ngOnInit() {
@@ -49,20 +56,37 @@ export class PhotoPage implements OnInit {
       targetHeight: 400
     }).then((res) => {
       this.url = 'data:image/jpeg;base64,' + res;
-      this.presentLoading();
     }).catch(e => {
       console.log(e);
     });
   }
 
   uploadPhoto() {
-    console.log('upload photo');
+    this.presentLoading();
+    const url = 'data:image/jpeg;base64,' + this.url;
+    const imgBlob = this.storageService.convertDataUrltoBlob(url);
+    this.storageService.uploadToStorage(imgBlob, 'imageWisata').then(
+      snapshot => {
+        snapshot.ref.getDownloadURL().then(downloadUrl => {
+          this.db.collection<WisataPhoto>('wisata/' + this.wisata.id + '/photos').add({
+            photo: downloadUrl
+          });
+          this.userService.getSingleUser(localStorage.getItem('email')).pipe(take(1)).subscribe(res => {
+            const data = res[0];
+            this.db.collection('users').doc(data.id).collection('photos').add({
+              photo: downloadUrl
+            });
+          });
+        });
+      }, error => {
+        console.log(error);
+      });
   }
 
   async presentLoading() {
     const loading = await this.loadCtrl.create({
       message: 'Please wait...',
-      duration: 1000
+      duration: 1500
     });
 
     await loading.present();

@@ -9,6 +9,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { LoadingController } from '@ionic/angular';
 import { Wisata } from 'src/app/models/wisata.model';
 import { WisataPhoto } from 'src/app/models/wisataPhoto.model';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-profile',
@@ -27,7 +28,8 @@ export class ProfilePage implements OnInit {
     private router: Router,
     private db: AngularFirestore,
     private camera: Camera,
-    private loadCtrl: LoadingController
+    private loadCtrl: LoadingController,
+    private storageService: StorageService
   ) {
     this.user = { id: '', name: '-', age: 0, contribution: 0, email: '-', reviewCounter: 0, photo: '' };
     this.userPhotos = [
@@ -89,9 +91,19 @@ export class ProfilePage implements OnInit {
       targetWidth: 200,
       targetHeight: 200
     }).then((res) => {
-      this.user.photo = 'data:image/jpeg;base64,' + res;
       this.presentLoading();
-      this.userService.updatePhoto(this.user.photo);
+      const url = 'data:image/jpeg;base64,' + res;
+      const imgBlob = this.storageService.convertDataUrltoBlob(url);
+      this.storageService.uploadToStorage(imgBlob, 'imageUser').then(
+        snapshot => {
+          snapshot.ref.getDownloadURL().then(downloadUrl => {
+            this.user.photo = downloadUrl;
+            this.userService.updatePhoto(downloadUrl);
+          }, error => {
+            console.log(error);
+          });
+        }
+      );
     }).catch(e => {
       console.log(e);
     });
