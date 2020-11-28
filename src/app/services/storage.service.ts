@@ -21,9 +21,20 @@ export class StorageService {
   }
 
   uploadToStorage(imageBlob: any, refPath: string) {
-    const fileRef = firebase.storage().ref(refPath + '/' + imageBlob.fileName);
+    const fileRef = firebase.storage().ref(refPath + '/' + this.getRandomString());
     const uploadTask = fileRef.put(imageBlob);
 
     return uploadTask;
+  }
+
+  getRandomString() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+
+    for (let i = 0; i < 20; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+
+    return result;
   }
 }
