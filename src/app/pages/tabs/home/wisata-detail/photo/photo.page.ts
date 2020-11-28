@@ -3,12 +3,13 @@ import { ActivatedRoute } from '@angular/router';
 import { Wisata } from 'src/app/models/wisata.model';
 import { WisataService } from 'src/app/services/wisata.service';
 import { take } from 'rxjs/operators';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { Camera } from '@ionic-native/camera/ngx';
 import { StorageService } from 'src/app/services/storage.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { WisataPhoto } from 'src/app/models/wisataPhoto.model';
 import { UsersService } from 'src/app/services/users.service';
+import { UploadPhoto } from 'src/app/models/uploadPhoto.model';
 
 @Component({
   selector: 'app-photo',
@@ -22,7 +23,7 @@ export class PhotoPage implements OnInit {
 
   constructor(
     private wisataService: WisataService,
-    private userService: UsersService,
+    private toastCtrl: ToastController,
     private activatedRoute: ActivatedRoute,
     private loadCtrl: LoadingController,
     private camera: Camera,
@@ -52,8 +53,7 @@ export class PhotoPage implements OnInit {
     this.camera.getPicture({
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: this.camera.DestinationType.DATA_URL,
-      targetWidth: 600,
-      targetHeight: 400
+      quality: 75
     }).then((res) => {
       this.url = 'data:image/jpeg;base64,' + res;
     }).catch(e => {
@@ -61,34 +61,40 @@ export class PhotoPage implements OnInit {
     });
   }
 
-  uploadPhoto() {
-    this.presentLoading();
+  async uploadPhoto() {
+    const loading = await this.loadCtrl.create({
+      message: 'Uploading Photo...'
+    });
+    await loading.present();
+
     const url = 'data:image/jpeg;base64,' + this.url;
     const imgBlob = this.storageService.convertDataUrltoBlob(url);
-    this.storageService.uploadToStorage(imgBlob, 'imageWisata').then(
+    const imgName = this.storageService.getRandomString();
+    this.storageService.uploadToStorage(imgBlob, imgName, 'uploadWisata').then(
       snapshot => {
         snapshot.ref.getDownloadURL().then(downloadUrl => {
-          this.db.collection<WisataPhoto>('wisata/' + this.wisata.id + '/photos').add({
-            photo: downloadUrl
+          this.db.collection('uploads').add({
+            photo: downloadUrl,
+            photoName: imgName,
+            wisataId: this.wisata.id,
+            wisataName: this.wisata.name,
+            userName: localStorage.getItem('name'),
+            userEmail: localStorage.getItem('email')
           });
-          this.userService.getSingleUser(localStorage.getItem('email')).pipe(take(1)).subscribe(res => {
-            const data = res[0];
-            this.db.collection('users').doc(data.id).collection('photos').add({
-              photo: downloadUrl
-            });
-          });
+          loading.dismiss();
+          this.presentToast();
         });
       }, error => {
         console.log(error);
       });
   }
 
-  async presentLoading() {
-    const loading = await this.loadCtrl.create({
-      message: 'Please wait...',
+  async presentToast() {
+    const toast = await this.toastCtrl.create({
+      message: 'Image submitted successfully!',
       duration: 1500
     });
 
-    await loading.present();
+    await toast.present();
   }
 }

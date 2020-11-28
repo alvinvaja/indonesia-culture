@@ -20,8 +20,8 @@ export class StorageService {
     return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
   }
 
-  uploadToStorage(imageBlob: any, refPath: string) {
-    const fileRef = firebase.storage().ref(refPath + '/' + this.getRandomString());
+  uploadToStorage(imageBlob: any, imageName: string, refPath: string) {
+    const fileRef = firebase.storage().ref(refPath + '/' + imageName);
     const uploadTask = fileRef.put(imageBlob);
 
     return uploadTask;

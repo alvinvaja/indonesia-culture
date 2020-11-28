@@ -88,13 +88,13 @@ export class ProfilePage implements OnInit {
     this.camera.getPicture({
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: this.camera.DestinationType.DATA_URL,
-      targetWidth: 200,
-      targetHeight: 200
+      quality: 75
     }).then((res) => {
       this.presentLoading();
       const url = 'data:image/jpeg;base64,' + res;
       const imgBlob = this.storageService.convertDataUrltoBlob(url);
-      this.storageService.uploadToStorage(imgBlob, 'imageUser').then(
+      const imgName = this.storageService.getRandomString();
+      this.storageService.uploadToStorage(imgBlob, imgName, 'imageUser').then(
         snapshot => {
           snapshot.ref.getDownloadURL().then(downloadUrl => {
             this.user.photo = downloadUrl;

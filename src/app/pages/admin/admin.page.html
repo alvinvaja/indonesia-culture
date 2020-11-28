@@ -41,12 +41,6 @@
         <ion-button [routerLink]="['./create-wisata']">
           <ion-icon name="newspaper-outline"></ion-icon>
         </ion-button>
-        <ion-button
-          style="margin-left: 170px"
-          [routerLink]="['./photo-approve']"
-        >
-          <ion-icon name="images-outline"></ion-icon>
-        </ion-button>
         <hr />
         <ion-item-sliding #slidingItem *ngFor="let wisata of wisatas">
           <ion-item style="font-family: Lato-Light">
@@ -67,6 +61,11 @@
             </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
+        <div style="display: flex; justify-content: flex-end; margin-top: 8px;">
+          <ion-button [routerLink]="['./photo-approve']" style="padding: 20;">
+            <ion-icon name="images-outline"></ion-icon>
+          </ion-button>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>
