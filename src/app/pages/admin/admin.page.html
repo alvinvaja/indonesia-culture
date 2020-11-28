@@ -39,39 +39,33 @@
           {{ defaultPlace }}
         </div>
         <ion-button [routerLink]="['./create-wisata']">
-          <ion-icon name="add"></ion-icon>
+          <ion-icon name="newspaper-outline"></ion-icon>
         </ion-button>
-        <ion-button [routerLink]="['./']">
-          <ion-icon name="alert-outline"></ion-icon>
+        <ion-button
+          style="margin-left: 170px"
+          [routerLink]="['./photo-approve']"
+        >
+          <ion-icon name="images-outline"></ion-icon>
         </ion-button>
+        <hr />
         <ion-item-sliding #slidingItem *ngFor="let wisata of wisatas">
+          <ion-item style="font-family: Lato-Light">
+            {{ wisata.name }}
+          </ion-item>
           <ion-item-options side="start">
             <ion-item-option
               color="primary"
               [routerLink]="['./edit-wisata', wisata.id]"
             >
-              Edit
+              <ion-icon name="create-outline"></ion-icon>
             </ion-item-option>
           </ion-item-options>
+
           <ion-item-options side="end">
             <ion-item-option color="danger" (click)="deleteData(wisata.id)">
-              Delete
+              <ion-icon name="trash"></ion-icon>
             </ion-item-option>
           </ion-item-options>
-          <ion-item style="padding: 8px" [routerLink]="['./', wisata.id]">
-            {{ wisata.name }}
-
-            <div class="subtitle">
-              <ion-label
-                *ngIf="isWisataOpen(wisata)"
-                style="color: rgb(0, 250, 54)"
-                >Open</ion-label
-              >
-              <ion-label *ngIf="!isWisataOpen(wisata)" style="color: red"
-                >Closed</ion-label
-              >
-            </div>
-          </ion-item>
         </ion-item-sliding>
       </ion-col>
     </ion-row>

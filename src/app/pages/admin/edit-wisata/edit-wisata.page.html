@@ -28,9 +28,9 @@
         <input
           class="input"
           type="text"
-          name="address"
-          [(ngModel)]="wisata.address"
-          placeholder="address"
+          name="name"
+          [(ngModel)]="wisata.name"
+          placeholder="name"
         />
       </div>
       <div class="wrap-input">
@@ -40,6 +40,24 @@
           name="city"
           [(ngModel)]="wisata.city"
           placeholder="city"
+        />
+      </div>
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="text"
+          name="address"
+          [(ngModel)]="wisata.address"
+          placeholder="address"
+        />
+      </div>
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="text"
+          name="openHour"
+          [(ngModel)]="wisata.openHour"
+          placeholder="Open Hour"
         />
       </div>
 
@@ -53,6 +71,15 @@
         />
       </div>
 
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="number"
+          name="price"
+          [(ngModel)]="wisata.price"
+          placeholder="price"
+        />
+      </div>
       <div class="wrap-input">
         <input
           class="input"
@@ -77,39 +104,9 @@
         <input
           class="input"
           type="text"
-          name="name"
-          [(ngModel)]="wisata.name"
-          placeholder="name"
-        />
-      </div>
-
-      <div class="wrap-input">
-        <input
-          class="input"
-          type="text"
-          name="openHour"
-          [(ngModel)]="wisata.openHour"
-          placeholder="Open Hour"
-        />
-      </div>
-
-      <div class="wrap-input">
-        <input
-          class="input"
-          type="text"
           name="photo"
           [(ngModel)]="wisata.photo"
           placeholder="Photo"
-        />
-      </div>
-
-      <div class="wrap-input">
-        <input
-          class="input"
-          type="number"
-          name="price"
-          [(ngModel)]="wisata.price"
-          placeholder="price"
         />
       </div>
 

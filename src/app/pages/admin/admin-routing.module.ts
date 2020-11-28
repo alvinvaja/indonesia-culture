@@ -18,7 +18,11 @@ const routes: Routes = [
   {
     path: 'edit-wisata/:id',
     loadChildren: () => import('./edit-wisata/edit-wisata.module').then( m => m.EditWisataPageModule)
+  },  {
+    path: 'photo-approve',
+    loadChildren: () => import('./photo-approve/photo-approve.module').then( m => m.PhotoApprovePageModule)
   },
+
 ];
 
 @NgModule({

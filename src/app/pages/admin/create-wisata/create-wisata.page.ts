@@ -30,8 +30,8 @@ export class CreateWisataPage implements OnInit {
     openHour: [{ type: "required", message: "openHour is required" }],
     photo: [{ type: "required", message: "photo is required" }],
     price: [{ type: "required", message: "price is required" }],
-    latitude: [{ type: "required", message: "price is required" }],
-    longtitude: [{ type: "required", message: "price is required" }],
+    latitude: [{ type: "required", message: "latitude is required" }],
+    longtitude: [{ type: "required", message: "longtitude is required" }],
     // rating: [{ type: 'required', message: 'rating is required' }],
     // reviewCounter: [{ type: 'required', message: 'reviewCounter is required' }],
   };

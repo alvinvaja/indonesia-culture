@@ -32,21 +32,23 @@
         <input
           class="input"
           type="text"
-          name="address"
-          placeholder="address"
-          formControlName="address"
+          name="name"
+          placeholder="name"
+          formControlName="name"
+          required
         />
       </div>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.address">
+      <div class="validation-errors" style="margin-left: 25px">
+        <ng-container *ngFor="let validation of validationMessages.name">
           <div
             class="error-message"
-            *ngIf="validationForm.get('address').hasError(validation.type) && (validationForm.get('address').dirty || validationForm.get('address').touched)"
+            *ngIf="validationForm.get('name').hasError(validation.type) && (validationForm.get('name').dirty || validationForm.get('name').touched)"
           >
             {{ validation.message }}
           </div>
         </ng-container>
       </div>
+
       <div class="wrap-input">
         <input
           class="input"
@@ -57,11 +59,52 @@
           required
         />
       </div>
-      <div class="validation-errors">
+      <div class="validation-errors" style="margin-left: 25px">
         <ng-container *ngFor="let validation of validationMessages.city">
           <div
             class="error-message"
             *ngIf="validationForm.get('city').hasError(validation.type) && (validationForm.get('city').dirty || validationForm.get('city').touched)"
+          >
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="text"
+          name="address"
+          placeholder="address"
+          formControlName="address"
+        />
+      </div>
+      <div class="validation-errors" style="margin-left: 25px">
+        <ng-container *ngFor="let validation of validationMessages.address">
+          <div
+            class="error-message"
+            *ngIf="validationForm.get('address').hasError(validation.type) && (validationForm.get('address').dirty || validationForm.get('address').touched)"
+          >
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="text"
+          name="openHour"
+          placeholder="openHour"
+          formControlName="openHour"
+          required
+        />
+      </div>
+      <div class="validation-errors" style="margin-left: 25px">
+        <ng-container *ngFor="let validation of validationMessages.openHour">
+          <div
+            class="error-message"
+            *ngIf="validationForm.get('openHour').hasError(validation.type) && (validationForm.get('openHour').dirty || validationForm.get('openHour').touched)"
           >
             {{ validation.message }}
           </div>
@@ -78,11 +121,32 @@
           required
         />
       </div>
-      <div class="validation-errors">
+      <div class="validation-errors" style="margin-left: 25px">
         <ng-container *ngFor="let validation of validationMessages.closeHour">
           <div
             class="error-message"
             *ngIf="validationForm.get('closeHour').hasError(validation.type) && (validationForm.get('closeHour').dirty || validationForm.get('closeHour').touched)"
+          >
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="number"
+          name="price"
+          placeholder="price"
+          formControlName="price"
+          required
+        />
+      </div>
+      <div class="validation-errors" style="margin-left: 25px">
+        <ng-container *ngFor="let validation of validationMessages.price">
+          <div
+            class="error-message"
+            *ngIf="validationForm.get('price').hasError(validation.type) && (validationForm.get('price').dirty || validationForm.get('price').touched)"
           >
             {{ validation.message }}
           </div>
@@ -99,7 +163,7 @@
           required
         />
       </div>
-      <div class="validation-errors">
+      <div class="validation-errors" style="margin-left: 25px">
         <ng-container *ngFor="let validation of validationMessages.description">
           <div
             class="error-message"
@@ -120,53 +184,11 @@
           required
         />
       </div>
-      <div class="validation-errors">
+      <div class="validation-errors" style="margin-left: 25px">
         <ng-container *ngFor="let validation of validationMessages.history">
           <div
             class="error-message"
             *ngIf="validationForm.get('history').hasError(validation.type) && (validationForm.get('history').dirty || validationForm.get('history').touched)"
-          >
-            {{ validation.message }}
-          </div>
-        </ng-container>
-      </div>
-
-      <div class="wrap-input">
-        <input
-          class="input"
-          type="text"
-          name="name"
-          placeholder="name"
-          formControlName="name"
-          required
-        />
-      </div>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.name">
-          <div
-            class="error-message"
-            *ngIf="validationForm.get('name').hasError(validation.type) && (validationForm.get('name').dirty || validationForm.get('name').touched)"
-          >
-            {{ validation.message }}
-          </div>
-        </ng-container>
-      </div>
-
-      <div class="wrap-input">
-        <input
-          class="input"
-          type="text"
-          name="openHour"
-          placeholder="openHour"
-          formControlName="openHour"
-          required
-        />
-      </div>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.openHour">
-          <div
-            class="error-message"
-            *ngIf="validationForm.get('openHour').hasError(validation.type) && (validationForm.get('openHour').dirty || validationForm.get('openHour').touched)"
           >
             {{ validation.message }}
           </div>
@@ -183,32 +205,11 @@
           required
         />
       </div>
-      <div class="validation-errors">
+      <div class="validation-errors" style="margin-left: 25px">
         <ng-container *ngFor="let validation of validationMessages.photo">
           <div
             class="error-message"
             *ngIf="validationForm.get('photo').hasError(validation.type) && (validationForm.get('photo').dirty || validationForm.get('photo').touched)"
-          >
-            {{ validation.message }}
-          </div>
-        </ng-container>
-      </div>
-
-      <div class="wrap-input">
-        <input
-          class="input"
-          type="number"
-          name="price"
-          placeholder="price"
-          formControlName="price"
-          required
-        />
-      </div>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.price">
-          <div
-            class="error-message"
-            *ngIf="validationForm.get('price').hasError(validation.type) && (validationForm.get('price').dirty || validationForm.get('price').touched)"
           >
             {{ validation.message }}
           </div>
@@ -225,7 +226,7 @@
           required
         />
       </div>
-      <div class="validation-errors">
+      <div class="validation-errors" style="margin-left: 25px">
         <ng-container *ngFor="let validation of validationMessages.latitude">
           <div
             class="error-message"
@@ -246,7 +247,7 @@
           required
         />
       </div>
-      <div class="validation-errors">
+      <div class="validation-errors" style="margin-left: 25px">
         <ng-container *ngFor="let validation of validationMessages.longtitude">
           <div
             class="error-message"

@@ -1,48 +1,82 @@
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
 
 <ion-header class="ion-no-border">
-	<ion-toolbar>
-    <ion-buttons slot="start" style="position: absolute; top: 10px; left: 10px;">
+  <ion-toolbar>
+    <ion-buttons slot="start" style="position: absolute; top: 10px; left: 10px">
       <ion-back-button defaultHref="/tabs/home"></ion-back-button>
     </ion-buttons>
     <div class="back-circle"></div>
-		<ion-title class="ion-text-center custom-font">Sign In</ion-title>
-	</ion-toolbar>
+    <ion-title class="ion-text-center custom-font">Sign In</ion-title>
+  </ion-toolbar>
 </ion-header>
 
-
 <ion-content fullscreen="true">
-  <div class="ion-padding" style="display: flex; justify-content: center; align-items: center; height: 100%;">
-    <form class="form ion-padding" [formGroup]="validations_form" (ngSubmit)="loginUser(validations_form.value)">
+  <div
+    class="ion-padding"
+    style="
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    "
+  >
+    <form
+      class="form ion-padding"
+      [formGroup]="validations_form"
+      (ngSubmit)="loginUser(validations_form.value)"
+    >
       <div class="wrap-input">
-        <input class="input" type="text" name="email" placeholder="Email" formControlName="email">
+        <input
+          class="input"
+          type="text"
+          name="email"
+          placeholder="Email"
+          formControlName="email"
+        />
       </div>
-      <div class="validation-errors">
+      <div class="validation-errors" style="margin-left: 25px">
         <ng-container *ngFor="let validation of validation_messages.email">
-          <div class="error-message"
-            *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
-            {{ validation.message }}
-          </div>
-        </ng-container>
-      </div>
-      
-      <div class="wrap-input">
-        <input class="input" type="password" name="password" placeholder="Password" formControlName="password" >
-      </div>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validation_messages.password">
-          <div class="error-message"
-            *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+          <div
+            class="error-message"
+            *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)"
+          >
             {{ validation.message }}
           </div>
         </ng-container>
       </div>
 
-      <div class="container-form-btn" style="margin-top: 26px;">
-        <button class="form-btn custom-font"  type="submit" [disabled]="!validations_form.valid">
-        Log In
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="password"
+          name="password"
+          placeholder="Password"
+          formControlName="password"
+        />
+      </div>
+      <div class="validation-errors" style="margin-left: 25px">
+        <ng-container *ngFor="let validation of validation_messages.password">
+          <div
+            class="error-message"
+            *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)"
+          >
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="container-form-btn" style="margin-top: 26px">
+        <button
+          class="form-btn custom-font"
+          type="submit"
+          [disabled]="!validations_form.valid"
+        >
+          Log In
         </button>
-      </div> 
+      </div>
 
       <label class="error-message">{{errorMessage}}</label>
     </form>
@@ -50,9 +84,9 @@
 </ion-content>
 
 <ion-footer class="ion-no-border">
-	<ion-toolbar>
-		<p class="ion-text-center custom-font"> No account yet? <a (click)="goToRegisterPage()">Create an account.</a></p>
-	</ion-toolbar>
-</ion-footer> 
-
-  
+  <ion-toolbar>
+    <p class="ion-text-center custom-font">
+      No account yet? <a (click)="goToRegisterPage()">Create an account.</a>
+    </p>
+  </ion-toolbar>
+</ion-footer>

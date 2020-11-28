@@ -7,9 +7,16 @@ import { IonicModule } from "@ionic/angular";
 import { AdminPageRoutingModule } from "./admin-routing.module";
 
 import { AdminPage } from "./admin.page";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, AdminPageRoutingModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    AdminPageRoutingModule,
+    MatAutocompleteModule,
+  ],
   declarations: [AdminPage],
 })
 export class AdminPageModule {}

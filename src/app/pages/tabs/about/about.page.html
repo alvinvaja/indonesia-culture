@@ -1,14 +1,42 @@
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
 
 <ion-header class="ion-no-border">
-	<ion-toolbar>
-    <ion-title class="ion-text-center custom-font">About</ion-title>
+  <ion-toolbar>
+    <ion-buttons slot="start" style="position: absolute; top: 10px; left: 10px">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
     <div class="back-circle"></div>
-  </ion-toolbar> 
+    <ion-title class="ion-text-center custom-font">About</ion-title>
+  </ion-toolbar>
 </ion-header>
 
-
 <ion-content fullscreen="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="10" offset="1">
+        <ion-card style="padding: 16px; border-radius: 12px">
+          <ion-card-content
+            style="padding-left: 8px; padding-right: 8px; font-size: 12px"
+          >
+            <h2 style="text-align: center">Indonesian Culture</h2>
+            <br />
+            <p style="text-align: justify">
+              Aplikasi ini berisi informasi mengenai tempat - tempat wisata yang
+              mengenalkan kebudayaan yang ada di Indonesia.
+            </p>
+            <br /><br />
+            <p style="text-align: center">Presented by :</p>
+            <p style="text-align: center">Alvin Valenciano</p>
 
+            <p style="text-align: center">Calvin Andersen</p>
 
+            <p style="text-align: center">Miguel Gouwardi</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
