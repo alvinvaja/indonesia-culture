@@ -5,6 +5,7 @@ import { map, take } from 'rxjs/operators';
 import firebase from 'firebase/app';
 import { UsersService } from 'src/app/services/users.service';
 import { WisataPhoto } from 'src/app/models/wisataPhoto.model';
+import { User } from 'src/app/models/users.model';
 
 @Component({
   selector: 'app-photo-approve',
@@ -46,6 +47,9 @@ export class PhotoApprovePage implements OnInit {
       const data = res[0];
       this.db.collection('users').doc(data.id).collection('photos').add({
         photo: item.photo
+      });
+      this.db.collection<User>('users').doc(data.id).update({
+        contribution: data.contribution + 5
       });
     });
     this.removePendingPhoto(item.id);
