@@ -14,6 +14,13 @@
   <ion-grid>
     <ion-row>
       <ion-col size="10" offset="1" style="padding: 0">
+        <div *ngIf="!wisataPhoto.length" style="height: 100vh; width: 100%; 
+                    display: flex; justify-content: center; align-items: center; flex-direction: column;
+                    position: fixed; top: 0; left: 0; color: white; padding: 0px 16px;
+                    font-weight: 500; font-size: 18px; text-align: center;">
+          There are no photos yet<br>Contribute to this page by sharing yours<br>
+          <ion-button (click)="goToPhoto()" color="primary" style="text-transform: none !important; margin-top: 16px;">Add Photo</ion-button>
+        </div>
         <ion-grid>
           <ion-row>
             <ion-col size="6" *ngFor="let photo of wisataPhoto">

@@ -42,8 +42,10 @@ export class HomePage implements OnInit {
     });
 
     modal.onDidDismiss().then((resultData) => {
-      this.defaultPlace = resultData.data.city;
-      this.subscribeWisata();
+      if (resultData.data.city !== 'cancel') {
+        this.defaultPlace = resultData.data.city;
+        this.subscribeWisata();
+      }
     });
 
     return await modal.present();

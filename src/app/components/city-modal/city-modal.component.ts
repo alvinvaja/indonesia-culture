@@ -47,6 +47,10 @@ export class CityModalComponent implements OnInit {
     this.modalCtrl.dismiss({city: form.value}, 'confirm');
   }
 
+  onCancel(form: FormControl) {
+    this.modalCtrl.dismiss({city: 'cancel'}, 'cancel');
+  }
+
   validCity(city: string) {
     let valid = false;
     this.cities.forEach(data => {

@@ -10,14 +10,11 @@ import { UsersService } from "src/app/services/users.service";
 export class LeaderboardPage implements OnInit {
   public users: User[];
   public currentEmail = "";
-  constructor(private userService: UsersService) {}
-
-  ngOnInit() {
+  constructor(private userService: UsersService) {
     this.currentEmail =
       localStorage.getItem("email") === null
         ? ""
         : localStorage.getItem("email");
-    this.users = [];
     this.userService.getAllUsers().subscribe((res) => {
       this.users = res.filter((data) => {
         return data.email !== "admin@mailnator.com";
@@ -29,7 +26,9 @@ export class LeaderboardPage implements OnInit {
           return 1;
         }
       });
-      console.log(this.users);
     });
+  }
+
+  ngOnInit() {
   }
 }

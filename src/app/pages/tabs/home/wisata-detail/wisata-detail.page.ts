@@ -47,7 +47,6 @@ export class WisataDetailPage implements OnInit {
           res.forEach((data) => {
             if (data.id === wisataId) {
               this.wisata = data;
-              console.log(this.wisata);
             }
           });
         });

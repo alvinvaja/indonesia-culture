@@ -1,6 +1,6 @@
 import { CreateWisataService } from "./../../../services/create-wisata.service";
 import { Router } from "@angular/router";
-// register.page.ts
+import { Camera } from '@ionic-native/camera/ngx';
 import { Component, OnInit } from "@angular/core";
 import {
   FormGroup,
@@ -9,6 +9,8 @@ import {
   FormControl,
 } from "@angular/forms";
 import { LoadingController, NavController } from "@ionic/angular";
+import { StorageService } from 'src/app/services/storage.service';
+import firebase from 'firebase/app';
 
 @Component({
   selector: "app-create-wisata",
@@ -19,6 +21,7 @@ export class CreateWisataPage implements OnInit {
   validationForm: FormGroup;
   errorMessage = "";
   successMessage = "";
+  photoUrl = "";
 
   validationMessages = {
     address: [{ type: "required", message: "address is required." }],
@@ -41,10 +44,13 @@ export class CreateWisataPage implements OnInit {
     private loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
-    private router: Router
+    private router: Router,
+    private camera: Camera,
+    private storageService: StorageService
   ) {}
 
   ngOnInit() {
+    this.photoUrl = '';
     this.validationForm = this.formBuilder.group({
       address: new FormControl("", Validators.compose([Validators.required])),
       city: new FormControl("", Validators.compose([Validators.required])),
@@ -72,40 +78,65 @@ export class CreateWisataPage implements OnInit {
   }
 
   tryCreateWisata(value: any) {
+    if (this.photoUrl === '') {
+      return;
+    }
+
     this.createWisata();
   }
 
   async createWisata() {
     const loading = await this.loadingCtrl.create();
-
-    const address = this.validationForm.value.address;
-    const city = this.validationForm.value.city;
-    const closeHour = this.validationForm.value.closeHour;
-    const description = this.validationForm.value.description;
-    const history = this.validationForm.value.history;
-    const name = this.validationForm.value.name;
-    const openHour = this.validationForm.value.openHour;
-    const photo = this.validationForm.value.photo;
-    const price = this.validationForm.value.price;
-    const rating = 0;
-    const reviewCounter = 0;
-    const latitude = this.validationForm.value.latitude;
-    const longtitude = this.validationForm.value.longtitude;
-    this.createWisataService.registerToFireStore(
-      address,
-      city,
-      closeHour,
-      description,
-      history,
-      name,
-      openHour,
-      photo,
-      price,
-      rating,
-      reviewCounter,
-      latitude,
-      longtitude
+    const imgBlob = this.storageService.convertDataUrltoBlob(this.photoUrl);
+    const imgName = this.storageService.getRandomString();
+    this.storageService.uploadToStorage(imgBlob, imgName, 'imageWisata').then(
+      snapshot => {
+        snapshot.ref.getDownloadURL().then(downloadUrl => {
+          const address = this.validationForm.value.address;
+          const city = this.validationForm.value.city;
+          const closeHour = this.validationForm.value.closeHour;
+          const description = this.validationForm.value.description;
+          const history = this.validationForm.value.history;
+          const name = this.validationForm.value.name;
+          const openHour = this.validationForm.value.openHour;
+          const price = this.validationForm.value.price;
+          const photo = downloadUrl;
+          const rating = 0;
+          const reviewCounter = 0;
+          const latitude = this.validationForm.value.latitude;
+          const longtitude = this.validationForm.value.longtitude;
+          this.createWisataService.registerToFireStore(
+            address,
+            city,
+            closeHour,
+            description,
+            history,
+            name,
+            openHour,
+            photo,
+            price,
+            rating,
+            reviewCounter,
+            latitude,
+            longtitude
+          );
+          this.router.navigateByUrl("/admin");
+        }, error => {
+          console.log(error);
+        });
+      }
     );
-    this.router.navigateByUrl("/admin");
+  }
+
+  addPhoto() {
+    this.camera.getPicture({
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      quality: 75
+    }).then(res => {
+      this.photoUrl = 'data:image/jpeg;base64,' + res;
+    }).catch(e => {
+      console.log(e);
+    });
   }
 }

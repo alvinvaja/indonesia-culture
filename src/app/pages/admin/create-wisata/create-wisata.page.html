@@ -198,27 +198,6 @@
       <div class="wrap-input">
         <input
           class="input"
-          type="text"
-          name="photo"
-          placeholder="photo"
-          formControlName="photo"
-          required
-        />
-      </div>
-      <div class="validation-errors" style="margin-left: 25px">
-        <ng-container *ngFor="let validation of validationMessages.photo">
-          <div
-            class="error-message"
-            *ngIf="validationForm.get('photo').hasError(validation.type) && (validationForm.get('photo').dirty || validationForm.get('photo').touched)"
-          >
-            {{ validation.message }}
-          </div>
-        </ng-container>
-      </div>
-
-      <div class="wrap-input">
-        <input
-          class="input"
           type="number"
           name="latitude"
           placeholder="latitude"
@@ -256,6 +235,20 @@
             {{ validation.message }}
           </div>
         </ng-container>
+      </div>
+
+      <div *ngIf="photoUrl !== ''" class="previewPhoto">
+        <p style="margin-bottom: 10px">Photo Preview</p>
+        <img src="{{ photoUrl }}" />
+      </div>
+
+      <div class="container-form-btn" style="margin-top: 26px">
+        <button
+          class="form-btn custom-font"
+          style="background-color: #488AFF; color: white; text-transform: none !important;"
+        >
+          Add Photo
+        </button>
       </div>
 
       <div class="container-form-btn" style="margin-top: 26px">

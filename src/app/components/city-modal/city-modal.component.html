@@ -14,6 +14,9 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <ion-button color="primary" (click)="onSubmit(formControl)">Submit</ion-button>
+    <div style="display: flex; justify-content: space-between;">
+      <ion-button color="primary" (click)="onSubmit(formControl)">Submit</ion-button>
+      <ion-button color="danger" (click)="onCancel(formControl)">Cancel</ion-button>
+    </div>
   </form>
 </div>
