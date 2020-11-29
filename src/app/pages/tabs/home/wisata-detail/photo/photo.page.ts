@@ -62,11 +62,6 @@ export class PhotoPage implements OnInit {
   }
 
   async uploadPhoto() {
-    const loading = await this.loadCtrl.create({
-      message: 'Uploading Photo...'
-    });
-    await loading.present();
-
     const url = 'data:image/jpeg;base64,' + this.url;
     const imgBlob = this.storageService.convertDataUrltoBlob(url);
     const imgName = this.storageService.getRandomString();
@@ -81,7 +76,6 @@ export class PhotoPage implements OnInit {
             userName: localStorage.getItem('name'),
             userEmail: localStorage.getItem('email')
           });
-          loading.dismiss();
           this.presentToast();
         });
       }, error => {
