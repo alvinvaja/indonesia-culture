@@ -1,11 +1,15 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { User } from 'src/app/models/users.model';
+import { Injectable } from "@angular/core";
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from "@angular/fire/firestore";
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
+import { Observable } from "rxjs";
+import { map, take } from "rxjs/operators";
+import { User } from "src/app/models/users.model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class UsersService {
   private singleUser: User;
@@ -13,10 +17,10 @@ export class UsersService {
   private usersCollection: AngularFirestoreCollection<User>;
 
   constructor(private db: AngularFirestore) {
-    this.usersCollection = db.collection<User>('users');
+    this.usersCollection = db.collection<User>("users");
     this.users = this.usersCollection.snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
+      map((actions) => {
+        return actions.map((a) => {
           const data = a.payload.doc.data();
           const id = a.payload.doc.id;
           return { id, ...data };
@@ -30,54 +34,68 @@ export class UsersService {
   }
 
   getSingleUser(email: string) {
-    return this.db.collection<User>('users', ref => ref.where('email', '==', email).limit(1)).snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        });
-      })
-    );
+    return this.db
+      .collection<User>("users", (ref) =>
+        ref.where("email", "==", email).limit(1)
+      )
+      .snapshotChanges()
+      .pipe(
+        map((actions) => {
+          return actions.map((a) => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+      );
   }
 
-  registerToFireStore(email: string, name: string, age: number, contribution: number) {
-    this.db.collection('users').add({
+  registerToFireStore(
+    email: string,
+    name: string,
+    age: number,
+    contribution: number
+  ) {
+    this.db.collection("users").add({
       email,
       name,
       age,
       contribution,
-      photo: '../../../../assets/icon/avatar.svg'
+      photo: "../../../../assets/icon/avatar.svg",
+      reviewCounter: 0,
     });
   }
 
   addUserReview(review: any) {
-    const email = localStorage.getItem('email');
+    const email = localStorage.getItem("email");
 
     const currentUser = this.getSingleUser(email);
-    currentUser.pipe(take(1)).subscribe(res => {
+    currentUser.pipe(take(1)).subscribe((res) => {
       const data = res[0];
-      this.db.collection('users').doc(data.id).update({
-        reviewCounter: data.reviewCounter + 1,
-        contribution: data.contribution + 1
-      });
-      this.db.collection('users').doc(data.id).collection('review').add({
+      this.db
+        .collection("users")
+        .doc(data.id)
+        .update({
+          reviewCounter: data.reviewCounter + 1,
+          contribution: data.contribution + 1,
+        });
+      this.db.collection("users").doc(data.id).collection("review").add({
         rating: review.rating,
         review: review.review,
         wisataName: review.wisataName,
-        wisataPhoto: review.wisataPhoto
+        wisataPhoto: review.wisataPhoto,
       });
     });
   }
 
   updatePhoto(newPhoto: string) {
-    const email = localStorage.getItem('email');
+    const email = localStorage.getItem("email");
 
     const currentUser = this.getSingleUser(email);
-    currentUser.pipe(take(1)).subscribe(res => {
+    currentUser.pipe(take(1)).subscribe((res) => {
       const data = res[0];
-      this.db.collection('users').doc(data.id).update({
-        photo: newPhoto
+      this.db.collection("users").doc(data.id).update({
+        photo: newPhoto,
       });
     });
   }
