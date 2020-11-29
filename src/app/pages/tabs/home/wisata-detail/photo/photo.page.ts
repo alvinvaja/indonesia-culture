@@ -62,8 +62,11 @@ export class PhotoPage implements OnInit {
   }
 
   async uploadPhoto() {
-    const url = 'data:image/jpeg;base64,' + this.url;
-    const imgBlob = this.storageService.convertDataUrltoBlob(url);
+    const loading = await this.loadCtrl.create({
+      message: 'Uploading Photo...'
+    });
+    await loading.present();
+    const imgBlob = this.storageService.convertDataUrltoBlob(this.url);
     const imgName = this.storageService.getRandomString();
     this.storageService.uploadToStorage(imgBlob, imgName, 'uploadWisata').then(
       snapshot => {
@@ -76,6 +79,7 @@ export class PhotoPage implements OnInit {
             userName: localStorage.getItem('name'),
             userEmail: localStorage.getItem('email')
           });
+          loading.dismiss();
           this.presentToast();
         });
       }, error => {

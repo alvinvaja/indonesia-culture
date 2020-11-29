@@ -20,11 +20,7 @@ export class GalleryPage implements OnInit {
 
   ngOnInit() {
     this.wisata = this.wisataService.getDummy();
-    this.wisataPhoto = [
-      { photo: 'https://dummyimage.com/600x400/000/fff' },
-      { photo: 'https://dummyimage.com/600x400/000/fff' },
-      { photo: 'https://dummyimage.com/600x400/000/fff' }
-    ];
+    this.wisataPhoto = [];
     this.activatedRoute.paramMap.subscribe(paramMap => {
       if (!paramMap.has('wisataId')) { return; }
       const wisataId = paramMap.get('wisataId');
@@ -37,10 +33,9 @@ export class GalleryPage implements OnInit {
         });
       });
 
-      // Will be used later
-      // this.wisataService.getWisataPhotos(wisataId).subscribe(res => {
-      //   this.wisataPhoto = res;
-      // });
+      this.wisataService.getWisataPhotos(wisataId).subscribe(res => {
+        this.wisataPhoto = res;
+      });
     });
   }
 }
