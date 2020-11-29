@@ -12,7 +12,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-item lines="none" class="user__item" *ngFor="let user of users; let i = index" [color]="user.name === currentName ? 'light' : ''">
+        <ion-item lines="none" class="user__item" *ngFor="let user of users; let i = index" [color]="user.email === currentEmail ? 'light' : ''">
           <div class="user">
             <div style="display: flex; align-items: center;">
               <ion-label>{{ (i + 1) }}</ion-label>

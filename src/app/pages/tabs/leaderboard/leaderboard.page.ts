@@ -9,13 +9,13 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class LeaderboardPage implements OnInit {
   public users: User[];
-  public currentName = '';
+  public currentEmail = '';
   constructor(
     private userService: UsersService
   ) { }
 
   ngOnInit() {
-    this.currentName = localStorage.getItem('name') === null ? '' : localStorage.getItem('name');
+    this.currentEmail = localStorage.getItem('email') === null ? '' : localStorage.getItem('email');
     this.users = [];
     this.userService.getAllUsers().subscribe(res => {
       this.users = res.filter(data => {

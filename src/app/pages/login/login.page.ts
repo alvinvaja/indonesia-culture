@@ -62,6 +62,7 @@ export class LoginPage implements OnInit {
       (res) => {
         console.log(res);
         this.errorMessage = '';
+        value.email = value.email.toLowerCase();
         this.createLoginSession(value.email);
         if (value.email === 'admin@mailnator.com') {
           this.navCtrl.navigateForward('/admin');
