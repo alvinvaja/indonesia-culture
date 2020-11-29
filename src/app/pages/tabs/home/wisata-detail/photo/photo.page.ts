@@ -66,9 +66,7 @@ export class PhotoPage implements OnInit {
       message: 'Uploading Photo...'
     });
     await loading.present();
-
-    const url = 'data:image/jpeg;base64,' + this.url;
-    const imgBlob = this.storageService.convertDataUrltoBlob(url);
+    const imgBlob = this.storageService.convertDataUrltoBlob(this.url);
     const imgName = this.storageService.getRandomString();
     this.storageService.uploadToStorage(imgBlob, imgName, 'uploadWisata').then(
       snapshot => {

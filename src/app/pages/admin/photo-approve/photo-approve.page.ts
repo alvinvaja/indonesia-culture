@@ -43,7 +43,7 @@ export class PhotoApprovePage implements OnInit {
     this.db.collection<WisataPhoto>('wisata/' + item.wisataId + '/photos').add({
       photo: item.photo
     });
-    this.userService.getSingleUser(localStorage.getItem('email')).pipe(take(1)).subscribe(res => {
+    this.userService.getSingleUser(item.userEmail).pipe(take(1)).subscribe(res => {
       const data = res[0];
       this.db.collection('users').doc(data.id).collection('photos').add({
         photo: item.photo

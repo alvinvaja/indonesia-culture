@@ -32,11 +32,7 @@ export class ProfilePage implements OnInit {
     private storageService: StorageService
   ) {
     this.user = { id: '', name: '-', age: 0, contribution: 0, email: '-', reviewCounter: 0, photo: '' };
-    this.userPhotos = [
-      { photo: 'https://dummyimage.com/600x400/000/fff' },
-      { photo: 'https://dummyimage.com/600x400/000/fff' },
-      { photo: 'https://dummyimage.com/600x400/000/fff' }
-    ];
+    this.userPhotos = [];
     this.showReview = true;
     this.interval = setInterval(() => {
       const currentSession = localStorage.getItem('email') !== null ? localStorage.getItem('email') : '-';
@@ -63,18 +59,17 @@ export class ProfilePage implements OnInit {
               this.userReview = review;
             });
 
-            // Will be used later
-            // this.db.collection<WisataPhoto>('users/' + data.id + '/photos').snapshotChanges().pipe(
-            //   map(reviews => {
-            //     return reviews.map(a => {
-            //       const review = a.payload.doc.data();
-            //       const id = a.payload.doc.id;
-            //       return { id, ...review };
-            //     });
-            //   })
-            // ).subscribe(photos => {
-            //   this.userPhotos = photos;
-            // });
+            this.db.collection<WisataPhoto>('users/' + data.id + '/photos').snapshotChanges().pipe(
+              map(reviews => {
+                return reviews.map(a => {
+                  const review = a.payload.doc.data();
+                  const id = a.payload.doc.id;
+                  return { id, ...review };
+                });
+              })
+            ).subscribe(photos => {
+              this.userPhotos = photos;
+            });
           });
         }
       }
