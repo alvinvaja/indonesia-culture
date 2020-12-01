@@ -17,14 +17,14 @@ export class EditWisataPage implements OnInit {
   validationForm: FormGroup;
   username: string;
   wisata: Wisata;
-  router: Router;
   loadingCtrl: LoadingController;
 
   constructor(
     private wisataService: WisataService,
     private activatedRoute: ActivatedRoute,
     private camera: Camera,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private router: Router
   ) {
     setInterval(() => {
       this.username =
@@ -77,10 +77,12 @@ export class EditWisataPage implements OnInit {
           snapshot.ref.getDownloadURL().then(downloadUrl => {
             record["photo"] = downloadUrl;
             this.wisataService.update_wisata(recordRow.id, record);
+            this.router.navigateByUrl("/admin");
           });
         });
     } else {
       this.wisataService.update_wisata(recordRow.id, record);
+      this.router.navigateByUrl("/admin");
     }
   }
 
