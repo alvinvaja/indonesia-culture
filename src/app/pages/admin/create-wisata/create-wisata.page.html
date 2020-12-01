@@ -238,12 +238,13 @@
       </div>
 
       <div *ngIf="photoUrl !== ''" class="previewPhoto">
-        <p style="margin-bottom: 10px">Photo Preview</p>
+        <p style="margin-bottom: 10px; font-size: 16px; color: white">Photo Preview</p>
         <img src="{{ photoUrl }}" />
       </div>
 
       <div class="container-form-btn" style="margin-top: 26px">
         <button
+          (click)="addPhoto()"
           class="form-btn custom-font"
           style="background-color: #488AFF; color: white; text-transform: none !important;"
         >

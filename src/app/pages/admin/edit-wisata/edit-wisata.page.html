@@ -9,7 +9,7 @@
       <ion-back-button defaultHref="/tabs/home"></ion-back-button>
     </ion-buttons>
     <div class="back-circle"></div>
-    <ion-title class="ion-text-center custom-font">{{wisata.name}}</ion-title>
+    <ion-title class="ion-text-center custom-font">Edit Wisata</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -24,6 +24,19 @@
     "
   >
     <form class="form ion-padding" (ngSubmit)="update(wisata)">
+      <div class="previewPhoto">
+        <p style="margin-bottom: 10px; font-size: 16px; color: white">Photo Preview</p>
+        <img src="{{ wisata.photo }}" />
+      </div>
+      <div class="container-form-btn" style="margin: 20px 0">
+        <button
+          (click)="changePhoto()"
+          class="form-btn custom-font"
+          style="background-color: #488AFF; color: white; text-transform: none !important;"
+        >
+          Change Photo
+        </button>
+      </div>
       <div class="wrap-input">
         <input
           class="input"
@@ -97,16 +110,6 @@
           name="history"
           [(ngModel)]="wisata.history"
           placeholder="history"
-        />
-      </div>
-
-      <div class="wrap-input">
-        <input
-          class="input"
-          type="text"
-          name="photo"
-          [(ngModel)]="wisata.photo"
-          placeholder="Photo"
         />
       </div>
 

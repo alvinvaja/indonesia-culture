@@ -115,3 +115,10 @@ ion-content {
     box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.8);
   }
 }
+
+.previewPhoto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
