@@ -3,7 +3,7 @@ import { WisataService } from 'src/app/services/wisata.service';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-city-modal',
@@ -17,7 +17,8 @@ export class CityModalComponent implements OnInit {
 
   constructor(
     private wisataService: WisataService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private alertCtrl: AlertController
   ) { }
 
   ngOnInit() {
@@ -41,6 +42,7 @@ export class CityModalComponent implements OnInit {
 
   onSubmit(form: FormControl) {
     if (!form.value || !this.validCity(form.value)) {
+      this.presentAlert(form.value);
       return;
     }
 
@@ -58,5 +60,18 @@ export class CityModalComponent implements OnInit {
     });
 
     return valid;
+  }
+
+  async presentAlert(city: string) {
+    const alert = await this.alertCtrl.create({
+      message: city ? 'City is not valid!' : 'City must not be empty!',
+      buttons: [
+        {
+          text: 'Ok'
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

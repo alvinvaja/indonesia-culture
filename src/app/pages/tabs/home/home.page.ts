@@ -13,11 +13,13 @@ import { CityModalComponent } from "src/app/components/city-modal/city-modal.com
 })
 export class HomePage implements OnInit {
   @ViewChild(IonContent) content: IonContent;
-  public wisatas: Wisata[];
+  public wisatas: any[];
   public defaultPlace: string;
   public now: Date = new Date();
   public username: string;
   public backToTop = false;
+  lat: number;
+  long: number;
 
   constructor(
     private wisataService: WisataService,
@@ -26,6 +28,10 @@ export class HomePage implements OnInit {
     private alertCtrl: AlertController,
     private platform: Platform
   ) {
+    navigator.geolocation.getCurrentPosition(pos => {
+      this.lat = pos.coords.latitude;
+      this.long = pos.coords.longitude;
+    });
     setInterval(() => {
       this.now = new Date();
       this.username =
@@ -59,6 +65,9 @@ export class HomePage implements OnInit {
     this.wisataService.getAllWisatas().subscribe((res) => {
       this.wisatas = res;
       this.wisatas = this.filterCity();
+      for (let i = 0; i < this.wisatas.length; i++) {
+        this.wisatas[i].distance = this.lat + this.long;
+      }
     });
   }
 
