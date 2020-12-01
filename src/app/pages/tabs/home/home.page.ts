@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Wisata } from "src/app/models/wisata.model";
 import { WisataService } from "src/app/services/wisata.service";
 import firebase from "firebase";
 import { Router } from "@angular/router";
-import { AlertController, ModalController } from "@ionic/angular";
+import { AlertController, IonContent, ModalController, Platform } from "@ionic/angular";
 import { CityModalComponent } from "src/app/components/city-modal/city-modal.component";
 
 @Component({
@@ -12,16 +12,19 @@ import { CityModalComponent } from "src/app/components/city-modal/city-modal.com
   styleUrls: ["./home.page.scss"],
 })
 export class HomePage implements OnInit {
+  @ViewChild(IonContent) content: IonContent;
   public wisatas: Wisata[];
   public defaultPlace: string;
   public now: Date = new Date();
   public username: string;
+  public backToTop = false;
 
   constructor(
     private wisataService: WisataService,
     private router: Router,
     private modalCtrl: ModalController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private platform: Platform
   ) {
     setInterval(() => {
       this.now = new Date();
@@ -117,5 +120,17 @@ export class HomePage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  getScrollPos(pos: number) {
+    if (pos > this.platform.height()) {
+      this.backToTop = true;
+    } else {
+      this.backToTop = false;
+    }
+  }
+
+  gotToTop() {
+    this.content.scrollToTop(1000);
   }
 }

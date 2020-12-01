@@ -12,7 +12,7 @@
 </ion-header>
 
 
-<ion-content fullscreen="true">
+<ion-content fullscreen="true" [scrollEvents]="true" (ionScroll)="getScrollPos($event.detail.scrollTop)">
   <ion-grid>
     <ion-row>
       <ion-col size="10" offset="1">
@@ -39,3 +39,7 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+
+<div class="back-to-top-btn" *ngIf="backToTop" (click)="gotToTop()">
+  <ion-icon name="chevron-up-outline"></ion-icon>
+</div>

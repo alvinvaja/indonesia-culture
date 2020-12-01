@@ -44,6 +44,23 @@
   
     }
 }
-  ion-content {
-    --background:linear-gradient(to bottom,rgba(71, 242, 255,0.5), rgba(243, 15, 255,0.5)), url('../../../../assets/img/background.jpg') 0 0/100% 100% no-repeat ;
+ion-content {
+  --background:linear-gradient(to bottom,rgba(71, 242, 255,0.5), rgba(243, 15, 255,0.5)), url('../../../../assets/img/background.jpg') 0 0/100% 100% no-repeat ;
+}
+
+.back-to-top-btn {
+  background: #018cfd;
+  position: fixed;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  right: 10px;
+  transform: translateX(-50%);
+  bottom: 20px;
+  z-index: 999;
 }
