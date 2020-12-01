@@ -3,7 +3,7 @@ import { Wisata } from "src/app/models/wisata.model";
 import { WisataService } from "src/app/services/wisata.service";
 import firebase from "firebase";
 import { Router } from "@angular/router";
-import { ModalController } from "@ionic/angular";
+import { AlertController, ModalController } from "@ionic/angular";
 import { CityModalComponent } from "src/app/components/city-modal/city-modal.component";
 
 @Component({
@@ -20,7 +20,8 @@ export class HomePage implements OnInit {
   constructor(
     private wisataService: WisataService,
     private router: Router,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private alertCtrl: AlertController
   ) {
     setInterval(() => {
       this.now = new Date();
@@ -97,9 +98,24 @@ export class HomePage implements OnInit {
     return hour * 3600 + minute * 60;
   }
 
-  logOut() {
-    localStorage.removeItem("name");
-    localStorage.removeItem("email");
-    this.router.navigateByUrl("/login");
+  async logOut() {
+    const alert = await this.alertCtrl.create({
+      message: 'Are you sure you want to sign out?',
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            localStorage.removeItem("name");
+            localStorage.removeItem("email");
+            this.router.navigateByUrl("/login");
+          }
+        },
+        {
+          text: 'No'
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }
