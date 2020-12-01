@@ -17,8 +17,9 @@
         <div *ngIf="!wisataPhoto.length" style="height: 100vh; width: 100%; 
                     display: flex; justify-content: center; align-items: center; flex-direction: column;
                     position: fixed; top: 0; left: 0; color: white; padding: 0px 16px;
-                    font-weight: 500; font-size: 18px; text-align: center;">
-          There are no photos yet<br>Contribute to this page by sharing yours<br>
+                    font-weight: 400; font-size: 14px; text-align: center;">
+          <p style="font-size: 24px; color: rgb(233, 232, 198); font-weight: 500;">There are no photos yet</p>
+          <br>Contribute to this page by sharing yours<br>
           <ion-button (click)="goToPhoto()" color="primary" style="text-transform: none !important; margin-top: 16px;">Add Photo</ion-button>
         </div>
         <ion-grid>
