@@ -62,7 +62,6 @@ export class CreateWisataPage implements OnInit {
       history: new FormControl("", Validators.compose([Validators.required])),
       name: new FormControl("", Validators.compose([Validators.required])),
       openHour: new FormControl("", Validators.compose([Validators.required])),
-      photo: new FormControl("", Validators.compose([Validators.required])),
       price: new FormControl("", Validators.compose([Validators.required])),
       latitude: new FormControl("", Validators.compose([Validators.required])),
       longtitude: new FormControl(
@@ -78,6 +77,7 @@ export class CreateWisataPage implements OnInit {
   }
 
   tryCreateWisata(value: any) {
+    console.log('a');
     if (this.photoUrl === '') {
       return;
     }
