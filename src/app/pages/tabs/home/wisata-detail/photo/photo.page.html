@@ -22,6 +22,7 @@
             <div class="actionButton">
               <ion-button color="primary" class="actionButton__style" (click)="choosePhoto()">Choose<br>Photo</ion-button>
               <ion-button [disabled]="(url === '') ? true : false" color="secondary" class="actionButton__style" (click)="uploadPhoto()">Upload<br>Photo</ion-button>
+              <input type="file" style="display: none" #filePicker  (change)="onFileChoose($event)" />
             </div>
           </ion-card-content>
         </ion-card>
